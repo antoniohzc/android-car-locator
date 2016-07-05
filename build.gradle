@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
-
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -15,9 +15,29 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    buildToolsVersion = "23.0.3"
+    minSdkVersion = 16
+    targetSdkVersion = 23
+    compileSdkVersion = 23
+
+    supportLibraryVersion = '23.4.0'
+
+    daggerVersion = '2.0.1'
+    jsr250Version = '1.0'
+
+    dbflowVersion = '3.1.1'
+
+    playServicesLocationVersion = '9.0.2'
+    firebaseClientVersion = '2.5.0'
+    butterknifeVersion = '8.0.1'
+    eventBusVersion = '3.0.0'
 }
