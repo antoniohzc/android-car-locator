@@ -12,7 +12,7 @@ public class CarLocatorApp extends Application {
     }
 
     private void initFirebase() {
-        
+
     }
 
     private void initModules() {
