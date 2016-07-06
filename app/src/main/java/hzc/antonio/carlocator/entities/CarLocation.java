@@ -47,7 +47,7 @@ public class CarLocation extends BaseModel {
         this.longitude = longitude;
     }
 
-    public boolean getCurrentCarLocation() {
+    public boolean isCurrentCarLocation() {
         return currentCarLocation;
     }
 
