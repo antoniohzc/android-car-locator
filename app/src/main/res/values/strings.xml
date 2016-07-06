@@ -3,10 +3,10 @@
 
     <string name="login.hint.email">Email</string>
     <string name="login.hint.password">Password</string>
-    <string name="login.button.signin">SignIn</string>
-    <string name="login.button.signup">SignUp</string>
-    <string name="login.error.message.signin">Signin error: %s</string>
-    <string name="login.error.message.signup">Signup error: %s</string>
+    <string name="login.button.signin">Sign In</string>
+    <string name="login.button.signup">Sign Up</string>
+    <string name="login.error.message.signin">Sign in error: %s</string>
+    <string name="login.error.message.signup">Sign up error: %s</string>
     <string name="login.notice.message.signup">New user registered successfully</string>
 
     <string name="test.error.location.notavailable">Location not available</string>

@@ -7,6 +7,11 @@ import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import hzc.antonio.carlocator.domain.di.DomainModule;
+import hzc.antonio.carlocator.libs.di.LibsModule;
+import hzc.antonio.carlocator.login.di.DaggerLoginComponent;
+import hzc.antonio.carlocator.login.di.LoginComponent;
+import hzc.antonio.carlocator.login.di.LoginModule;
+import hzc.antonio.carlocator.login.ui.LoginView;
 
 public class CarLocatorApp extends Application {
     private static final String SHARED_PREFERENCES_NAME = "UserPrefs";
@@ -55,7 +60,12 @@ public class CarLocatorApp extends Application {
         return SHARED_PREFERENCES_EMAIL_KEY;
     }
 
-    public String getFirebaseUrl() {
-        return FIREBASE_URL;
+    public LoginComponent getLoginComponent(LoginView view) {
+        return DaggerLoginComponent.builder()
+                .carLocatorAppModule(carLocatorAppModule)
+                .domainModule(domainModule)
+                .libsModule(new LibsModule(this))
+                .loginModule(new LoginModule(view))
+                .build();
     }
 }

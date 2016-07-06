@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,8 +33,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @BindView(R.id.container) RelativeLayout container;
 
     private CarLocatorApp app;
-    private SharedPreferences sharedPreferences;
-    private LoginPresenter presenter;
+    @Inject
+    public SharedPreferences sharedPreferences;
+    @Inject
+    public LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +45,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         ButterKnife.bind(this);
 
         app = (CarLocatorApp) getApplication();
-        presenter = new LoginPresenterImpl(this);
+        setupInjection();
         presenter.onCreate();
         presenter.validateLogin(null, null);
+    }
+
+    private void setupInjection() {
+        app.getLoginComponent(this).inject(this);
     }
 
     @Override
