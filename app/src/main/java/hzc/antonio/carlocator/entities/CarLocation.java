@@ -1,6 +1,7 @@
 package hzc.antonio.carlocator.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.android.gms.maps.model.LatLng;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -10,6 +11,9 @@ import hzc.antonio.carlocator.db.CarLocationsDatabase;
 
 @Table(database = CarLocationsDatabase.class)
 public class CarLocation extends BaseModel {
+    @JsonIgnore
+    private String uid;
+
     @PrimaryKey
     private String timestamp;
 
@@ -22,6 +26,14 @@ public class CarLocation extends BaseModel {
     @JsonIgnore
     @Column
     private boolean currentCarLocation;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getTimestamp() {
         return timestamp;
@@ -53,6 +65,15 @@ public class CarLocation extends BaseModel {
 
     public void setCurrentCarLocation(boolean currentCarLocation) {
         this.currentCarLocation = currentCarLocation;
+    }
+
+    public LatLng getLatLng() {
+        return new LatLng(this.latitude, this.longitude);
+    }
+    
+    public void setLatLng(LatLng location) {
+        this.latitude = location.latitude;
+        this.longitude = location.longitude;
     }
 
     @Override
