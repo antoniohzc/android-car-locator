@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.login.LoginPresenter;
+import hzc.antonio.carlocator.login.LoginPresenterImpl;
 import hzc.antonio.carlocator.login.events.LoginEvent;
 import hzc.antonio.carlocator.test.TestActivity;
 
@@ -79,14 +80,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         progressBar.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.btnSignin)
     @Override
+    @OnClick(R.id.btnSignin)
     public void handleSignIn() {
         presenter.validateLogin(txtEmail.getText().toString(), txtPassword.getText().toString());
     }
 
-    @OnClick(R.id.btnSignup)
     @Override
+    @OnClick(R.id.btnSignup)
     public void handleSignUp() {
         presenter.registerNewUser(txtEmail.getText().toString(), txtPassword.getText().toString());
     }
