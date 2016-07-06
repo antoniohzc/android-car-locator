@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">CarLocator</string>
 
-    <string name="test.btn.car_location">Car Location</string>
-    <string name="test.btn.current_location">Current Location</string>
+    <string name="test.error.location.notavailable">Imposible obtener ubicación</string>
+    <!--<string name="test.btn.zoom">Car Location</string>-->
+    <!--<string name="test.btn.add">Save to List</string>-->
+    <!--<string name="test.btn.save">Current Location</string>-->
+    <string name="test.btn.zoom">Car Locat.</string>
+    <string name="test.btn.add">Car Locat.</string>
+    <string name="test.btn.save">My Locat.</string>
 </resources>

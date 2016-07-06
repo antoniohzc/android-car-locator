@@ -19,22 +19,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="@dimen/padding_button_icon"
         android:layout_alignParentBottom="true"
-        android:weightSum="2">
+        android:background="@color/colorPrimary"
+        android:weightSum="3">
 
         <Button
-            android:id="@+id/btnShowCarLocation"
+            android:id="@+id/btnCarLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/test.btn.car_location"/>
+            android:drawableRight="@android:drawable/ic_menu_view"
+            android:drawablePadding="@dimen/padding_button_icon"
+            android:drawableTint="@color/colorAccent"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/test.btn.zoom"/>
 
         <Button
-            android:id="@+id/btnShowCurrentLocation"
+            android:id="@+id/btnAddToList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/test.btn.current_location"/>
+            android:drawableRight="@android:drawable/ic_menu_add"
+            android:drawablePadding="@dimen/padding_button_icon"
+            android:drawableTint="@color/colorAccent"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/test.btn.add"/>
+
+        <Button
+            android:id="@+id/btnSaveCurrentLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@android:drawable/ic_dialog_map"
+            android:drawablePadding="@dimen/padding_button_icon"
+            android:drawableTint="@color/colorAccent"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/test.btn.save"/>
 
     </LinearLayout>
 
