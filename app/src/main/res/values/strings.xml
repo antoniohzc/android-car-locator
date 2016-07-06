@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">CarLocator</string>
 
-    <string name="test.error.location.notavailable">Imposible obtener ubicación</string>
-    <!--<string name="test.btn.zoom">Car Location</string>-->
-    <!--<string name="test.btn.add">Save to List</string>-->
-    <!--<string name="test.btn.save">Current Location</string>-->
+    <string name="login.hint.email">Email</string>
+    <string name="login.hint.password">Password</string>
+    <string name="login.button.signin">Sign In</string>
+    <string name="login.button.signup">Sign Up</string>
+    <string name="login.error.message.signin">Sign in error: %s</string>
+    <string name="login.error.message.signup">Sign up error: %s</string>
+    <string name="login.notice.message.signup">New user registered successfully</string>
+
+    <string name="test.error.location.notavailable">Location not available</string>
     <string name="test.btn.zoom">Car Locat.</string>
     <string name="test.btn.add">Car Locat.</string>
     <string name="test.btn.save">My Locat.</string>
