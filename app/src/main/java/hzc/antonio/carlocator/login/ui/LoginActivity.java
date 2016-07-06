@@ -1,4 +1,4 @@
-package hzc.antonio.carlocator.login;
+package hzc.antonio.carlocator.login.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

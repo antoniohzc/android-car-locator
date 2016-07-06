@@ -20,7 +20,7 @@
             android:value="@string/GOOGLE_MAPS_API_KEY"/>
 
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".login.ui.LoginActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
