@@ -30,13 +30,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.LocationMapFragment;
 import hzc.antonio.carlocator.LocationsListFragment;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.login.ui.LoginActivity;
 import hzc.antonio.carlocator.main.MainPresenter;
-import hzc.antonio.carlocator.main.events.MainEvent;
 import hzc.antonio.carlocator.main.ui.adapters.MainSectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements MainView,
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
     }
 
     private void setupNavigation() {
-        String email = sharedPreferences.getString(app.getSharedPrefEmailKey(), getString(R.string.main_appbar_user));
+        String email = sharedPreferences.getString(app.getShPrefEmailKey(), getString(R.string.main_appbar_user));
         lblUser.setText(email);
         setSupportActionBar(toolbar);
 
@@ -198,6 +198,9 @@ public class MainActivity extends AppCompatActivity implements MainView,
         }
         if (LocationServices.FusedLocationApi.getLocationAvailability(googleApiClient).isLocationAvailable()) {
             lastKnownLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+            sharedPreferences.edit().putString(app.getShPrefLastKnownLatitudeKey(), String.valueOf(lastKnownLocation.getLatitude())).commit();
+            sharedPreferences.edit().putString(app.getShPrefLastKnownLontitudeKey(), String.valueOf(lastKnownLocation.getLongitude())).commit();
+
         }
         else {
             showSnackBar(R.string.main_error_location_notavailable);
@@ -240,6 +243,5 @@ public class MainActivity extends AppCompatActivity implements MainView,
     private void showSnackBar(int strResource) {
         Snackbar.make(viewPager, strResource, Snackbar.LENGTH_SHORT).show();
     }
-
     //endregion
 }

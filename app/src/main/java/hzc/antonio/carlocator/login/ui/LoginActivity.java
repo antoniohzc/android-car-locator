@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void setUserEmail(String email) {
         if (email != null) {
-            sharedPreferences.edit().putString(app.getSharedPrefEmailKey(), email).commit();
+            sharedPreferences.edit().putString(app.getShPrefEmailKey(), email).commit();
         }
     }
 }
