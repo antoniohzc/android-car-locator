@@ -19,9 +19,7 @@ import butterknife.OnClick;
 import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.login.LoginPresenter;
-import hzc.antonio.carlocator.login.LoginPresenterImpl;
-import hzc.antonio.carlocator.login.events.LoginEvent;
-import hzc.antonio.carlocator.test.TestActivity;
+import hzc.antonio.carlocator.main.ui.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -102,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void navigateToMainScreen() {
-        startActivity(new Intent(this, TestActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override

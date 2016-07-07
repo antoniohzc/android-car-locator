@@ -13,6 +13,7 @@
     <string name="main.tab.title.map">Location Map</string>
     <string name="main.tab.title.list">Locations List</string>
     <string name="main.menu.action.logout">Sign out</string>
+    <string name="main.error.location.notavailable">Location not available</string>
 
     <string name="test.error.location.notavailable">Location not available</string>
     <string name="test.btn.zoom">Car Locat.</string>
