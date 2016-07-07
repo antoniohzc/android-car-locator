@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CarLocator</string>
+    <string name="app_name">Car Locator</string>
 
     <string name="login.hint.email">Email</string>
     <string name="login.hint.password">Password</string>
@@ -8,6 +8,10 @@
     <string name="login.error.message.signin">Sign in error: %s</string>
     <string name="login.error.message.signup">Sign up error: %s</string>
     <string name="login.notice.message.signup">New user registered successfully</string>
+
+    <string name="main.tab.title.map">Location Map</string>
+    <string name="main.tab.title.list">Locations List</string>
+    <string name="main.menu.action.logout">Sign out</string>
 
     <string name="test.error.location.notavailable">Location not available</string>
     <string name="test.btn.zoom">Car Locat.</string>
