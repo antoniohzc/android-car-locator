@@ -29,6 +29,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,8 +50,10 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     @BindView(R.id.container) RelativeLayout container;
     @BindView(R.id.btnAddToList) Button btnAddToList;
 
+    @Inject
     LocationMapPresenter presenter;
 
+    private CarLocatorApp app;
     private GoogleMap map;
     private CarLocation carLocation;
     private static final int PERMISSIONS_LOCATION_REQUEST_CODE = 1;
@@ -61,12 +65,15 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        app = (CarLocatorApp) getActivity().getApplication();
         setupInjection();
+
         presenter.onCreate();
     }
 
     private void setupInjection() {
-        presenter = new LocationMapPresenterImpl(this);
+        app.getLocationMapComponent(this).inject(this);
     }
 
     @Override
@@ -88,7 +95,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && map != null) {
-            presenter.getCarLocation();
+             presenter.getCarLocation();
         }
     }
 
@@ -123,7 +130,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     //region User action handlers
     @OnClick(R.id.btnCarLocation)
     public void handleShowCarLocation() {
-        if (carLocation != null) {
+        if (carLocation != null && map != null) {
             animateCamera(carLocation.getLatLng());
         }
     }
@@ -180,7 +187,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
         map.clear();
         map.addMarker(new MarkerOptions().position(location));
 
-        animateCamera(location);
+        // animateCamera(location);
     }
 
     @Override

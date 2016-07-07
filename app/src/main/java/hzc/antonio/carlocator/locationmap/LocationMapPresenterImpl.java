@@ -14,17 +14,17 @@ public class LocationMapPresenterImpl implements LocationMapPresenter {
     private LocationMapView view;
     private LocationMapInteractor interactor;
 
-//    public LocationMapPresenterImpl(EventBus eventBus, LocationMapView view, LocationMapInteractor interactor) {
-//        this.eventBus = eventBus;
-//        this.view = view;
-//        this.interactor = interactor;
-//    }
-
-    public LocationMapPresenterImpl(LocationMapView view) {
-        this.eventBus = GreenRobotEventBusSingleton.getInstance();
+    public LocationMapPresenterImpl(EventBus eventBus, LocationMapView view, LocationMapInteractor interactor) {
+        this.eventBus = eventBus;
         this.view = view;
-        this.interactor = new LocationMapInteractorImpl();
+        this.interactor = interactor;
     }
+
+//    public LocationMapPresenterImpl(LocationMapView view) {
+//        this.eventBus = GreenRobotEventBusSingleton.getInstance();
+//        this.view = view;
+//        this.interactor = new LocationMapInteractorImpl();
+//    }
 
     @Override
     public void onCreate() {

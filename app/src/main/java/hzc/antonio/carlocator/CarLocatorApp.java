@@ -10,6 +10,10 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 
 import hzc.antonio.carlocator.domain.di.DomainModule;
 import hzc.antonio.carlocator.libs.di.LibsModule;
+import hzc.antonio.carlocator.locationmap.di.DaggerLocationMapComponent;
+import hzc.antonio.carlocator.locationmap.di.LocationMapComponent;
+import hzc.antonio.carlocator.locationmap.di.LocationMapModule;
+import hzc.antonio.carlocator.locationmap.ui.LocationMapView;
 import hzc.antonio.carlocator.login.di.DaggerLoginComponent;
 import hzc.antonio.carlocator.login.di.LoginComponent;
 import hzc.antonio.carlocator.login.di.LoginModule;
@@ -81,6 +85,14 @@ public class CarLocatorApp extends Application {
                 .domainModule(domainModule)
                 .libsModule(new LibsModule(this))
                 .mainModule(new MainModule(view, titles, fragments, fragmentManager))
+                .build();
+    }
+
+    public LocationMapComponent getLocationMapComponent(LocationMapView view) {
+        return DaggerLocationMapComponent.builder()
+                .carLocatorAppModule(carLocatorAppModule)
+                .libsModule(new LibsModule(this))
+                .locationMapModule(new LocationMapModule(view))
                 .build();
     }
 }

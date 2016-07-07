@@ -18,13 +18,13 @@ public class LocationMapRepositoryImpl implements LocationMapRepository {
 
     private static final double MIN_DISTANCE = 25d;
 
-//    public LocationMapRepositoryImpl(EventBus eventBus) {
-//        this.eventBus = eventBus;
-//    }
-
-    public LocationMapRepositoryImpl() {
-        this.eventBus = GreenRobotEventBusSingleton.getInstance();
+    public LocationMapRepositoryImpl(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
+
+//    public LocationMapRepositoryImpl() {
+//        this.eventBus = GreenRobotEventBusSingleton.getInstance();
+//    }
 
     @Override
     public void getCarLocation() {
