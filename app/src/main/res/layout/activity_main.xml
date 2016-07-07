@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lblTitle"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"/>
+                    android:text="@string/main.appbar.user"/>
 
             </RelativeLayout>
 

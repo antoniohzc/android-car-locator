@@ -9,6 +9,7 @@
     <string name="login.error.message.signup">Sign up error: %s</string>
     <string name="login.notice.message.signup">New user registered successfully</string>
 
+    <string name="main.appbar.user">user@domain.com</string>
     <string name="main.tab.title.map">Location Map</string>
     <string name="main.tab.title.list">Locations List</string>
     <string name="main.menu.action.logout">Sign out</string>
