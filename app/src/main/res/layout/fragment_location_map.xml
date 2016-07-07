@@ -1,13 +1,73 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="hzc.antonio.carlocator.LocationMapFragment">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".locationmap.ui.LocationMapFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <fragment
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_above="@+id/layoutButtons"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/layoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_button_icon"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnCarLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@android:drawable/ic_menu_view"
+            android:drawablePadding="@dimen/padding_button_icon"
+            android:drawableTint="@color/colorAccent"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/locationmap.btn.zoom"/>
+
+        <Button
+            android:id="@+id/btnAddToList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@android:drawable/ic_menu_add"
+            android:drawablePadding="@dimen/padding_button_icon"
+            android:drawableTint="@color/colorAccent"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/locationmap.btn.add"/>
+
+        <Button
+            android:id="@+id/btnSaveCurrentLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@android:drawable/ic_dialog_map"
+            android:drawablePadding="@dimen/padding_button_icon"
+            android:drawableTint="@color/colorAccent"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/locationmap.btn.save"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

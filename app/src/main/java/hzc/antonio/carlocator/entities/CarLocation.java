@@ -13,18 +13,16 @@ public class CarLocation extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
     private int id;
-
     @Column
     private double latitude;
-
     @Column
     private double longitude;
-
     @Column
     private String timestamp;
-
     @Column
     private boolean current;
+    @Column
+    private boolean favourite;
 
 
     public int getId() {
@@ -67,6 +65,13 @@ public class CarLocation extends BaseModel {
         this.current = current;
     }
 
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
 
     public LatLng getLatLng() {
         return new LatLng(this.latitude, this.longitude);

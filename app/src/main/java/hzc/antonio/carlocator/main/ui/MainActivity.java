@@ -24,15 +24,16 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import hzc.antonio.carlocator.CarLocatorApp;
-import hzc.antonio.carlocator.LocationMapFragment;
+import hzc.antonio.carlocator.locationmap.ui.LocationMapFragment;
 import hzc.antonio.carlocator.LocationsListFragment;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.login.ui.LoginActivity;
@@ -40,7 +41,8 @@ import hzc.antonio.carlocator.main.MainPresenter;
 import hzc.antonio.carlocator.main.ui.adapters.MainSectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements MainView,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.lblUser) TextView lblUser;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
     private GoogleApiClient googleApiClient;
     private Location lastKnownLocation;
     private boolean resolvingError = false;
+    private boolean requestingLocationUpdates = false;
     private static final int RESOLVE_LOCATION_ERROR_REQUEST_CODE = 0;
     private static final int PERMISSIONS_LOCATION_REQUEST_CODE = 1;
 
@@ -111,6 +114,20 @@ public class MainActivity extends AppCompatActivity implements MainView,
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (googleApiClient.isConnected() && !requestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        stopLocationUpdates();
+        super.onPause();
+    }
+
+    @Override
     protected void onStop() {
         googleApiClient.disconnect();
         super.onStop();
@@ -135,6 +152,11 @@ public class MainActivity extends AppCompatActivity implements MainView,
         }
     }
     //endregion
+
+
+    public Location getLastKnownLocation() {
+        return this.lastKnownLocation;
+    }
 
 
     //region Menu
@@ -180,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
             return;
         }
         setLastKnownLocation();
+        startLocationUpdates();
     }
 
     @Override
@@ -196,11 +219,9 @@ public class MainActivity extends AppCompatActivity implements MainView,
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+
         if (LocationServices.FusedLocationApi.getLocationAvailability(googleApiClient).isLocationAvailable()) {
             lastKnownLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            sharedPreferences.edit().putString(app.getShPrefLastKnownLatitudeKey(), String.valueOf(lastKnownLocation.getLatitude())).commit();
-            sharedPreferences.edit().putString(app.getShPrefLastKnownLontitudeKey(), String.valueOf(lastKnownLocation.getLongitude())).commit();
-
         }
         else {
             showSnackBar(R.string.main_error_location_notavailable);
@@ -230,6 +251,31 @@ public class MainActivity extends AppCompatActivity implements MainView,
             resolvingError = true;
             GoogleApiAvailability.getInstance().getErrorDialog(this, connectionResult.getErrorCode(), RESOLVE_LOCATION_ERROR_REQUEST_CODE).show();
         }
+    }
+
+    private void startLocationUpdates() {
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        requestingLocationUpdates = true;
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+    }
+
+    private void stopLocationUpdates() {
+        requestingLocationUpdates = false;
+        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lastKnownLocation = location;
     }
     //endregion
 

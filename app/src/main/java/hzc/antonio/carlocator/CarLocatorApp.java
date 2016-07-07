@@ -10,6 +10,10 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 
 import hzc.antonio.carlocator.domain.di.DomainModule;
 import hzc.antonio.carlocator.libs.di.LibsModule;
+import hzc.antonio.carlocator.locationmap.di.DaggerLocationMapComponent;
+import hzc.antonio.carlocator.locationmap.di.LocationMapComponent;
+import hzc.antonio.carlocator.locationmap.di.LocationMapModule;
+import hzc.antonio.carlocator.locationmap.ui.LocationMapView;
 import hzc.antonio.carlocator.login.di.DaggerLoginComponent;
 import hzc.antonio.carlocator.login.di.LoginComponent;
 import hzc.antonio.carlocator.login.di.LoginModule;
@@ -22,8 +26,6 @@ import hzc.antonio.carlocator.main.ui.MainView;
 public class CarLocatorApp extends Application {
     private static final String SP_NAME = "UserPrefs";
     private static final String SP_EMAIL_KEY = "email";
-    private static final String SP_LAST_KNOWN_LATITUDE_KEY = "latitude";
-    private static final String SP_LAST_KNOWN_LONGITUD_KEY = "longitude";
     private static final String FIREBASE_URL = "https://android-car-locator-hzc.firebaseio.com/" ;
 
     private CarLocatorAppModule carLocatorAppModule;
@@ -68,14 +70,6 @@ public class CarLocatorApp extends Application {
         return SP_EMAIL_KEY;
     }
 
-    public String getShPrefLastKnownLatitudeKey() {
-        return SP_LAST_KNOWN_LATITUDE_KEY;
-    }
-
-    public String getShPrefLastKnownLontitudeKey() {
-        return SP_LAST_KNOWN_LONGITUD_KEY;
-    }
-
     public LoginComponent getLoginComponent(LoginView view) {
         return DaggerLoginComponent.builder()
                 .carLocatorAppModule(carLocatorAppModule)
@@ -91,6 +85,14 @@ public class CarLocatorApp extends Application {
                 .domainModule(domainModule)
                 .libsModule(new LibsModule(this))
                 .mainModule(new MainModule(view, titles, fragments, fragmentManager))
+                .build();
+    }
+
+    public LocationMapComponent getLocationMapComponent(LocationMapView view) {
+        return DaggerLocationMapComponent.builder()
+                .carLocatorAppModule(carLocatorAppModule)
+                .libsModule(new LibsModule(this))
+                .locationMapModule(new LocationMapModule(view))
                 .build();
     }
 }
