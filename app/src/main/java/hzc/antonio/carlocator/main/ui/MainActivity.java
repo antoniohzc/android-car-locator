@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,9 +29,12 @@ import com.google.android.gms.location.LocationServices;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hzc.antonio.carlocator.CarLocatorApp;
+import hzc.antonio.carlocator.LocationMapFragment;
+import hzc.antonio.carlocator.LocationsListFragment;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.login.ui.LoginActivity;
 import hzc.antonio.carlocator.main.MainPresenter;
+import hzc.antonio.carlocator.main.events.MainEvent;
 import hzc.antonio.carlocator.main.ui.adapters.MainSectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements MainView,
@@ -68,7 +72,32 @@ public class MainActivity extends AppCompatActivity implements MainView,
     }
 
     private void setupInjection() {
+        String[] titles = new String[]{getString(R.string.main_tab_title_map), getString(R.string.main_tab_title_list)};
+        Fragment[] fragments = new Fragment[]{new LocationMapFragment(), new LocationsListFragment()};
 
+        adapter = new MainSectionsPagerAdapter(getSupportFragmentManager(), titles, fragments);
+        sharedPreferences = getSharedPreferences(app.getSharedPrefName(), MODE_PRIVATE);
+        presenter = new MainPresenter() {
+            @Override
+            public void onCreate() {
+
+            }
+
+            @Override
+            public void onDestroy() {
+
+            }
+
+            @Override
+            public void logout() {
+
+            }
+
+            @Override
+            public void onEventMainThread(MainEvent event) {
+
+            }
+        };
     }
 
     private void setupNavigation() {

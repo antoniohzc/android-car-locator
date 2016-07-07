@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Car Locator</string>
+    <string name="app_name">CarLocator</string>
 
     <string name="login.hint.email">Email</string>
     <string name="login.hint.password">Password</string>
@@ -19,4 +19,7 @@
     <string name="test.btn.zoom">Car Locat.</string>
     <string name="test.btn.add">Car Locat.</string>
     <string name="test.btn.save">My Locat.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
