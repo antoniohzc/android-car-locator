@@ -32,7 +32,7 @@
             android:name=".test.TestActivity">
         </activity>
         <activity
-            android:name=".main.MainActivity"
+            android:name=".main.ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
