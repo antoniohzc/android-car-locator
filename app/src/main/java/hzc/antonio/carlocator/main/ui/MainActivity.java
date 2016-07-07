@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainView,
     private static final int RESOLVE_LOCATION_ERROR_REQUEST_CODE = 0;
     private static final int PERMISSIONS_LOCATION_REQUEST_CODE = 1;
 
+
     //region Activity lifecycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,29 +76,6 @@ public class MainActivity extends AppCompatActivity implements MainView,
         String[] titles = new String[]{getString(R.string.main_tab_title_map), getString(R.string.main_tab_title_list)};
         Fragment[] fragments = new Fragment[]{new LocationMapFragment(), new LocationsListFragment()};
 
-        adapter = new MainSectionsPagerAdapter(getSupportFragmentManager(), titles, fragments);
-        sharedPreferences = getSharedPreferences(app.getSharedPrefName(), MODE_PRIVATE);
-        presenter = new MainPresenter() {
-            @Override
-            public void onCreate() {
-
-            }
-
-            @Override
-            public void onDestroy() {
-
-            }
-
-            @Override
-            public void logout() {
-
-            }
-
-            @Override
-            public void onEventMainThread(MainEvent event) {
-
-            }
-        };
     }
 
     private void setupNavigation() {
@@ -130,12 +108,27 @@ public class MainActivity extends AppCompatActivity implements MainView,
         googleApiClient.disconnect();
         super.onStop();
     }
+
     @Override
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESOLVE_LOCATION_ERROR_REQUEST_CODE) {
+            resolvingError = false;
+            if (resultCode == RESULT_OK) {
+                if (!googleApiClient.isConnecting() && !googleApiClient.isConnected()) {
+                    googleApiClient.connect();
+                }
+            }
+        }
+    }
     //endregion
+
 
     //region Menu
     @Override
@@ -154,7 +147,19 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void logout() {
+        presenter.logout();
+        sharedPreferences.edit().clear().commit();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
     //endregion
+
 
     //region GoogleApiClient callbacks
     @Override
@@ -186,10 +191,9 @@ public class MainActivity extends AppCompatActivity implements MainView,
         }
         if (LocationServices.FusedLocationApi.getLocationAvailability(googleApiClient).isLocationAvailable()) {
             lastKnownLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            Snackbar.make(viewPager, lastKnownLocation.toString(), Snackbar.LENGTH_SHORT).show();
         }
         else {
-            Snackbar.make(viewPager, R.string.main_error_location_notavailable, Snackbar.LENGTH_SHORT).show();
+            showSnackBar(R.string.main_error_location_notavailable);
         }
     }
 
@@ -217,32 +221,18 @@ public class MainActivity extends AppCompatActivity implements MainView,
             GoogleApiAvailability.getInstance().getErrorDialog(this, connectionResult.getErrorCode(), RESOLVE_LOCATION_ERROR_REQUEST_CODE).show();
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESOLVE_LOCATION_ERROR_REQUEST_CODE) {
-            resolvingError = false;
-            if (resultCode == RESULT_OK) {
-                if (!googleApiClient.isConnecting() && !googleApiClient.isConnected()) {
-                    googleApiClient.connect();
-                }
-            }
-        }
-    }
     //endregion
 
 
     //region View
-    private void logout() {
-        presenter.logout();
-        sharedPreferences.edit().clear().commit();
+    private void showSnackBar(String msg) {
+        Snackbar.make(viewPager, msg, Snackbar.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
+
+    private void showSnackBar(int strResource) {
+        Snackbar.make(viewPager, strResource, Snackbar.LENGTH_SHORT).show();
+    }
+
     //endregion
 }
