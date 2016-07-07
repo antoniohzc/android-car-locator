@@ -15,16 +15,16 @@ public class LocationMapInteractorImpl implements LocationMapInteractor {
 
     @Override
     public void getCarLocation() {
-
+        repository.getCarLocation();
     }
 
     @Override
-    public void updateCarLocation(CarLocation carLocation) {
-
+    public void updateCarLocation (CarLocation carLocation) {
+        repository.updateCarLocation(carLocation);
     }
 
     @Override
     public void addToList(CarLocation carLocation) {
-
+        repository.addToList(carLocation);
     }
 }

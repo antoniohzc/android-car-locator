@@ -32,7 +32,7 @@ public class Util {
     }
 
     public static String generateTimestamp() {
-        return new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new SimpleDateFormat("yyyy.MM.dd HH:mm").format(new Date());
     }
 
 }

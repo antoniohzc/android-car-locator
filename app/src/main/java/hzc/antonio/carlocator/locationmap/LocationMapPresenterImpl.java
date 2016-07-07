@@ -56,7 +56,38 @@ public class LocationMapPresenterImpl implements LocationMapPresenter {
     @Subscribe
     public void onEventMainThread(LocationMapEvent event) {
         if (view != null) {
-
+            String error = event.getError();
+            if (error != null) {
+                view.onCarLocationsError(error);
+            }
+            else {
+                switch (event.getType()) {
+                    case LocationMapEvent.ON_NOT_SAVED_CAR_LOCATION:
+                        view.onCarLocationNotSaved();
+                        break;
+                    case LocationMapEvent.ON_SET_CAR_LOCATION:
+                        setCarLocation(event.getCarLocation());
+                        break;
+                    case LocationMapEvent.ON_ADDED_TO_LIST:
+                        view.onCarLocationAdded();
+                        view.disableAddButton();
+                        break;
+                    case LocationMapEvent.ON_NOT_ADDED_TO_LIST:
+                        view.onCarLocationNotAdded(event.getCarLocation());
+                        break;
+                }
+            }
         }
+    }
+
+    private void setCarLocation(CarLocation carLocation) {
+        if (carLocation.isFavourite()) {
+            view.disableAddButton();
+        }
+        else {
+            view.enableAddButton();
+        }
+
+        view.setCarLocation(carLocation);
     }
 }

@@ -22,8 +22,6 @@ import hzc.antonio.carlocator.main.ui.MainView;
 public class CarLocatorApp extends Application {
     private static final String SP_NAME = "UserPrefs";
     private static final String SP_EMAIL_KEY = "email";
-    private static final String SP_LAST_KNOWN_LATITUDE_KEY = "latitude";
-    private static final String SP_LAST_KNOWN_LONGITUD_KEY = "longitude";
     private static final String FIREBASE_URL = "https://android-car-locator-hzc.firebaseio.com/" ;
 
     private CarLocatorAppModule carLocatorAppModule;
@@ -66,14 +64,6 @@ public class CarLocatorApp extends Application {
 
     public String getShPrefEmailKey() {
         return SP_EMAIL_KEY;
-    }
-
-    public String getShPrefLastKnownLatitudeKey() {
-        return SP_LAST_KNOWN_LATITUDE_KEY;
-    }
-
-    public String getShPrefLastKnownLontitudeKey() {
-        return SP_LAST_KNOWN_LONGITUD_KEY;
     }
 
     public LoginComponent getLoginComponent(LoginView view) {

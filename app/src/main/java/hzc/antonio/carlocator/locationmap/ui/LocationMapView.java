@@ -8,8 +8,8 @@ public interface LocationMapView {
 
     void setCarLocation(CarLocation carLocation);
 
-    void onCarLocationUpdated();
+    void onCarLocationNotSaved();
     void onCarLocationAdded();
-    void onCarLocationNotAdded();
+    void onCarLocationNotAdded(CarLocation storedCarLocation);
     void onCarLocationsError(String error);
 }
