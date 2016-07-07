@@ -15,6 +15,10 @@
     <string name="main.menu.action.logout">Sign out</string>
     <string name="main.error.location.notavailable">Location not available</string>
 
+    <string name="locationmap.btn.zoom">Car Location </string>
+    <string name="locationmap.btn.add">Car Location </string>
+    <string name="locationmap.btn.save">My Location </string>
+
     <string name="test.error.location.notavailable">Location not available</string>
     <string name="test.btn.zoom">Car Locat.</string>
     <string name="test.btn.add">Car Locat.</string>

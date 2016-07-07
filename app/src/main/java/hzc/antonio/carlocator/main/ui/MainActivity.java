@@ -30,9 +30,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import hzc.antonio.carlocator.CarLocatorApp;
-import hzc.antonio.carlocator.LocationMapFragment;
+import hzc.antonio.carlocator.locationmap.LocationMapFragment;
 import hzc.antonio.carlocator.LocationsListFragment;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.login.ui.LoginActivity;
