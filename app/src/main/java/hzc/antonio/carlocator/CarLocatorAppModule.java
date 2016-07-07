@@ -26,7 +26,7 @@ public class CarLocatorAppModule {
     @Provides
     @Singleton
     SharedPreferences providesSharedPreferences(Application application) {
-        return application.getSharedPreferences(app.getSharedPrefName(), Context.MODE_PRIVATE);
+        return application.getSharedPreferences(app.getShPrefName(), Context.MODE_PRIVATE);
     }
 
     @Provides

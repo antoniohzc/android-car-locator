@@ -9,8 +9,17 @@
     <string name="login.error.message.signup">Sign up error: %s</string>
     <string name="login.notice.message.signup">New user registered successfully</string>
 
+    <string name="main.appbar.user">user@domain.com</string>
+    <string name="main.tab.title.map">Location Map</string>
+    <string name="main.tab.title.list">Locations List</string>
+    <string name="main.menu.action.logout">Sign out</string>
+    <string name="main.error.location.notavailable">Location not available</string>
+
     <string name="test.error.location.notavailable">Location not available</string>
     <string name="test.btn.zoom">Car Locat.</string>
     <string name="test.btn.add">Car Locat.</string>
     <string name="test.btn.save">My Locat.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
