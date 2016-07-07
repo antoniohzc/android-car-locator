@@ -1,6 +1,8 @@
 package hzc.antonio.carlocator;
 
 import android.app.Application;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import com.firebase.client.Firebase;
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -12,6 +14,10 @@ import hzc.antonio.carlocator.login.di.DaggerLoginComponent;
 import hzc.antonio.carlocator.login.di.LoginComponent;
 import hzc.antonio.carlocator.login.di.LoginModule;
 import hzc.antonio.carlocator.login.ui.LoginView;
+import hzc.antonio.carlocator.main.di.DaggerMainComponent;
+import hzc.antonio.carlocator.main.di.MainComponent;
+import hzc.antonio.carlocator.main.di.MainModule;
+import hzc.antonio.carlocator.main.ui.MainView;
 
 public class CarLocatorApp extends Application {
     private static final String SHARED_PREFERENCES_NAME = "UserPrefs";
@@ -66,6 +72,15 @@ public class CarLocatorApp extends Application {
                 .domainModule(domainModule)
                 .libsModule(new LibsModule(this))
                 .loginModule(new LoginModule(view))
+                .build();
+    }
+
+    public MainComponent getMainComponent(MainView view, String[] titles, Fragment[] fragments, FragmentManager fragmentManager) {
+        return DaggerMainComponent.builder()
+                .carLocatorAppModule(carLocatorAppModule)
+                .domainModule(domainModule)
+                .libsModule(new LibsModule(this))
+                .mainModule(new MainModule(view, titles, fragments, fragmentManager))
                 .build();
     }
 }

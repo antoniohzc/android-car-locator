@@ -26,6 +26,8 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hzc.antonio.carlocator.CarLocatorApp;
@@ -45,8 +47,11 @@ public class MainActivity extends AppCompatActivity implements MainView,
     @BindView(R.id.tabLayout) TabLayout tabLayout;
     @BindView(R.id.viewPager) ViewPager viewPager;
 
+    @Inject
     MainPresenter presenter;
+    @Inject
     SharedPreferences sharedPreferences;
+    @Inject
     MainSectionsPagerAdapter adapter;
 
     private CarLocatorApp app;
@@ -75,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements MainView,
     private void setupInjection() {
         String[] titles = new String[]{getString(R.string.main_tab_title_map), getString(R.string.main_tab_title_list)};
         Fragment[] fragments = new Fragment[]{new LocationMapFragment(), new LocationsListFragment()};
+
+        app.getMainComponent(this, titles, fragments, getSupportFragmentManager()).inject(this);
 
     }
 
