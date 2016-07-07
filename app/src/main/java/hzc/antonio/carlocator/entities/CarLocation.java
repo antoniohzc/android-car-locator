@@ -1,6 +1,5 @@
 package hzc.antonio.carlocator.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.android.gms.maps.model.LatLng;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -11,36 +10,29 @@ import hzc.antonio.carlocator.db.CarLocationsDatabase;
 
 @Table(database = CarLocationsDatabase.class)
 public class CarLocation extends BaseModel {
-    @JsonIgnore
-    private String uid;
 
-    @PrimaryKey
-    private String timestamp;
+    @PrimaryKey(autoincrement = true)
+    private int id;
 
     @Column
     private double latitude;
-    
+
     @Column
     private double longitude;
 
-    @JsonIgnore
     @Column
-    private boolean currentCarLocation;
+    private String timestamp;
 
-    public String getUid() {
-        return uid;
+    @Column
+    private boolean current;
+
+
+    public int getId() {
+        return id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getLatitude() {
@@ -59,13 +51,22 @@ public class CarLocation extends BaseModel {
         this.longitude = longitude;
     }
 
-    public boolean isCurrentCarLocation() {
-        return currentCarLocation;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setCurrentCarLocation(boolean currentCarLocation) {
-        this.currentCarLocation = currentCarLocation;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
+
+    public boolean isCurrent() {
+        return current;
+    }
+
+    public void setCurrent(boolean current) {
+        this.current = current;
+    }
+
 
     public LatLng getLatLng() {
         return new LatLng(this.latitude, this.longitude);
@@ -81,7 +82,7 @@ public class CarLocation extends BaseModel {
         boolean equal = false;
         if (o instanceof CarLocation) {
             CarLocation location = (CarLocation) o;
-            equal = this.timestamp.equals(location.getTimestamp());
+            equal = this.id == location.getId();
         }
         return equal;
     }

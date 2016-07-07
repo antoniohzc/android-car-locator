@@ -31,7 +31,7 @@ public class Util {
         return result;
     }
 
-    public String generateTimestamp() {
+    public static String generateTimestamp() {
         return new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
     }
 
