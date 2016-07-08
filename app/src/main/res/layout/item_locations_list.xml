@@ -58,10 +58,19 @@
             android:paddingTop="@dimen/locationslist_padding_top_item_line">
 
             <ImageButton
-                android:id="@+id/btnShare"
+                android:id="@+id/btnLaunchNavigation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_share"
+                android:src="@android:drawable/ic_menu_directions"
+                android:background="@android:color/transparent"/>
+
+            <ImageButton
+                android:id="@+id/btnDisplayStreetView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:src="@android:drawable/ic_menu_gallery"
                 android:background="@android:color/transparent"/>
 
             <ImageButton

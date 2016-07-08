@@ -58,15 +58,19 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         int currentColor = ContextCompat.getColor(context, R.color.colorAccent);
         int notCurrentColor = ContextCompat.getColor(context, R.color.colorTextList);
         if (carLocation.isCurrent()) {
+            holder.btnLaunchNavigation.setVisibility(View.VISIBLE);
             holder.btnRemove.setVisibility(View.GONE);
             holder.btnMakeCurrent.setVisibility(View.GONE);
+
             holder.lblStreet.setTextColor(currentColor);
             holder.lblCity.setTextColor(currentColor);
             holder.lblDate.setTextColor(currentColor);
         }
         else {
+            holder.btnLaunchNavigation.setVisibility(View.GONE);
             holder.btnRemove.setVisibility(View.VISIBLE);
             holder.btnMakeCurrent.setVisibility(View.VISIBLE);
+
             holder.lblStreet.setTextColor(notCurrentColor);
             holder.lblCity.setTextColor(notCurrentColor);
             holder.lblDate.setTextColor(notCurrentColor);
@@ -78,12 +82,12 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         return dataset.size();
     }
 
-    public void set(List<CarLocation> list) {
+    public void setCarLocations(List<CarLocation> list) {
         dataset = list;
         notifyDataSetChanged();
     }
 
-    public void remove(CarLocation carLocation) {
+    public void removeCarLocation(CarLocation carLocation) {
         dataset.remove(carLocation);
         notifyDataSetChanged();
     }
@@ -93,7 +97,8 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         @BindView(R.id.lblStreet) TextView lblStreet;
         @BindView(R.id.lblCity) TextView lblCity;
         @BindView(R.id.lblDate) TextView lblDate;
-        @BindView(R.id.btnShare) ImageButton btnShare;
+        @BindView(R.id.btnLaunchNavigation) ImageButton btnLaunchNavigation;
+        @BindView(R.id.btnDisplayStreetView) ImageButton btnDisplayStreetView;
         @BindView(R.id.btnRemove) ImageButton btnRemove;
         @BindView(R.id.btnMakeCurrent) ImageButton btnMakeCurrent;
 
@@ -103,10 +108,17 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         }
 
         public void setOnItemClickListener(final CarLocation carLocation, final OnItemClickListener listener) {
-            btnShare.setOnClickListener(new View.OnClickListener() {
+            btnLaunchNavigation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onShareClick(carLocation);
+                    listener.onLaunchNavigationClick(carLocation);
+                }
+            });
+
+            btnDisplayStreetView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onDisplayStreetViewClick(carLocation);
                 }
             });
 
