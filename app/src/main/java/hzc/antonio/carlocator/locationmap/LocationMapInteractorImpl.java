@@ -9,10 +9,6 @@ public class LocationMapInteractorImpl implements LocationMapInteractor {
         this.repository = repository;
     }
 
-//    public LocationMapInteractorImpl() {
-//        this.repository = new LocationMapRepositoryImpl();
-//    }
-
     @Override
     public void getCarLocation() {
         repository.getCarLocation();

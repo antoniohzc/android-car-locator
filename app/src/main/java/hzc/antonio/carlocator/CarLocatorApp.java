@@ -17,7 +17,6 @@ import hzc.antonio.carlocator.locationmap.ui.LocationMapView;
 import hzc.antonio.carlocator.locationslist.di.DaggerLocationsListComponent;
 import hzc.antonio.carlocator.locationslist.di.LocationsListComponent;
 import hzc.antonio.carlocator.locationslist.di.LocationsListModule;
-import hzc.antonio.carlocator.locationslist.ui.LocationsListFragment;
 import hzc.antonio.carlocator.locationslist.ui.LocationsListView;
 import hzc.antonio.carlocator.locationslist.ui.adapters.OnItemClickListener;
 import hzc.antonio.carlocator.login.di.DaggerLoginComponent;

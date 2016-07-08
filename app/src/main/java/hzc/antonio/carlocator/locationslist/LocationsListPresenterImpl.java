@@ -1,7 +1,5 @@
 package hzc.antonio.carlocator.locationslist;
 
-import android.util.Log;
-
 import org.greenrobot.eventbus.Subscribe;
 
 import hzc.antonio.carlocator.entities.CarLocation;

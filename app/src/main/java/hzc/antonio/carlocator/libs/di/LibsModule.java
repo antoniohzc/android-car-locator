@@ -17,20 +17,17 @@ public class LibsModule {
         this.context = context;
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     EventBus providesEventBus(org.greenrobot.eventbus.EventBus eventBus) {
         return new GreenRobotEventBus(eventBus);
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     org.greenrobot.eventbus.EventBus providesLibraryEventBus() {
         return org.greenrobot.eventbus.EventBus.getDefault();
     }
 
-//    @Provides
-//    @Singleton
+//    @Provides @Singleton
 //    Context providesContext() {
 //        return this.context;
 //    }

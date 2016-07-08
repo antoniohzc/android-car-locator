@@ -25,9 +25,4 @@
     <string name="locationslist.item.lbl.city">City, ZIP</string>
     <string name="locationslist.item.lbl.date">Date</string>
     <string name="locationslist.notice.emptylist">Empty list</string>
-
-    <string name="test.error.location.notavailable">Location not available</string>
-    <string name="test.btn.zoom">Car Locat.</string>
-    <string name="test.btn.add">Car Locat.</string>
-    <string name="test.btn.save">My Locat.</string>
 </resources>

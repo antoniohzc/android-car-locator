@@ -1,8 +1,5 @@
 package hzc.antonio.carlocator.locationslist;
 
-import android.util.Log;
-
-import com.raizlabs.android.dbflow.sql.language.NameAlias;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.Arrays;
@@ -74,7 +71,6 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
             post(LocationsListEvent.ON_EMPTY_LIST);
         }
     }
-
 
 
     private void post(int type) {

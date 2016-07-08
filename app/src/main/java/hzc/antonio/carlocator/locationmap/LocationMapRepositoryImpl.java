@@ -1,7 +1,6 @@
 package hzc.antonio.carlocator.locationmap;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.raizlabs.android.dbflow.list.FlowCursorList;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.List;
 import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.entities.CarLocation_Table;
-import hzc.antonio.carlocator.libs.GreenRobotEventBusSingleton;
 import hzc.antonio.carlocator.libs.base.EventBus;
 import hzc.antonio.carlocator.locationmap.events.LocationMapEvent;
 
@@ -21,10 +19,6 @@ public class LocationMapRepositoryImpl implements LocationMapRepository {
     public LocationMapRepositoryImpl(EventBus eventBus) {
         this.eventBus = eventBus;
     }
-
-//    public LocationMapRepositoryImpl() {
-//        this.eventBus = GreenRobotEventBusSingleton.getInstance();
-//    }
 
     @Override
     public void getCarLocation() {

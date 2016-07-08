@@ -38,7 +38,6 @@ import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.locationmap.LocationMapPresenter;
-import hzc.antonio.carlocator.locationmap.LocationMapPresenterImpl;
 import hzc.antonio.carlocator.main.ui.MainActivity;
 
 

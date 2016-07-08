@@ -20,32 +20,27 @@ public class DomainModule {
         this.firebaseUrl = firebaseUrl;
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     FirebaseApi providesFirebaseApi(Firebase firebase) {
         return new FirebaseApi(firebase);
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     Firebase providesFirebase(String firebaseUrl) {
         return new Firebase(firebaseUrl);
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     String providesFirebaseUrl() {
         return this.firebaseUrl;
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     Util providesUtil(Geocoder geocoder) {
         return new Util(geocoder);
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     Geocoder providesGeocoder(Context context) {
         return new Geocoder(context);
     }
