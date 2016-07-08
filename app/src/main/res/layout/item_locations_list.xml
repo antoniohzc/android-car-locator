@@ -23,20 +23,20 @@
         android:layout_toEndOf="@+id/imgMap">
 
         <TextView
-            android:id="@+id/lblAddress"
+            android:id="@+id/lblStreet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="@string/locationslist.item.lbl.address" />
+            android:text="@string/locationslist.item.lbl.street" />
 
         <TextView
             android:id="@+id/lblCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblAddress"
+            android:layout_below="@+id/lblStreet"
             android:paddingTop="@dimen/locationslist_padding_top_item_line"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/locationslist.item.lbl.city"/>
