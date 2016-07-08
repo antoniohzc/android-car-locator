@@ -3,6 +3,7 @@ package hzc.antonio.carlocator.locationslist.ui.adapters;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         CustomAddress address = util.getCustomAddressFromLocation(lat, lng);
 
         holder.lblStreet.setText(address.getStreet());
-        holder.lblCity.setText(String.format(context.getString(R.string.locationslist_item_lbl_city), address.getCity(), address.getPostalCode()));
+        holder.lblCity.setText(address.getCity() + ", " + address.getPostalCode());
 
         // Map image
 
@@ -84,15 +85,6 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
 
     public void setCarLocations(List<CarLocation> list) {
         dataset = list;
-        notifyDataSetChanged();
-    }
-
-    public void updateCarLocation(CarLocation carLocation) {
-        for (CarLocation item : dataset) {
-            if (item.equals(carLocation)) {
-                item = carLocation;
-            }
-        }
         notifyDataSetChanged();
     }
 

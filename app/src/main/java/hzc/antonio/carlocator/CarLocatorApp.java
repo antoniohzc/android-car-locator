@@ -14,6 +14,12 @@ import hzc.antonio.carlocator.locationmap.di.DaggerLocationMapComponent;
 import hzc.antonio.carlocator.locationmap.di.LocationMapComponent;
 import hzc.antonio.carlocator.locationmap.di.LocationMapModule;
 import hzc.antonio.carlocator.locationmap.ui.LocationMapView;
+import hzc.antonio.carlocator.locationslist.di.DaggerLocationsListComponent;
+import hzc.antonio.carlocator.locationslist.di.LocationsListComponent;
+import hzc.antonio.carlocator.locationslist.di.LocationsListModule;
+import hzc.antonio.carlocator.locationslist.ui.LocationsListFragment;
+import hzc.antonio.carlocator.locationslist.ui.LocationsListView;
+import hzc.antonio.carlocator.locationslist.ui.adapters.OnItemClickListener;
 import hzc.antonio.carlocator.login.di.DaggerLoginComponent;
 import hzc.antonio.carlocator.login.di.LoginComponent;
 import hzc.antonio.carlocator.login.di.LoginModule;
@@ -93,6 +99,15 @@ public class CarLocatorApp extends Application {
                 .carLocatorAppModule(carLocatorAppModule)
                 .libsModule(new LibsModule(this))
                 .locationMapModule(new LocationMapModule(view))
+                .build();
+    }
+
+    public LocationsListComponent getLocationsListComponent(LocationsListView view, OnItemClickListener onItemClickListener) {
+        return DaggerLocationsListComponent.builder()
+                .carLocatorAppModule(carLocatorAppModule)
+                .domainModule(domainModule)
+                .libsModule(new LibsModule(this))
+                .locationsListModule(new LocationsListModule(view, onItemClickListener))
                 .build();
     }
 }

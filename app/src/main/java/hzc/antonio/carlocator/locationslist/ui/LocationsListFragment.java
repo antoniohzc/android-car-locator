@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.locationslist.LocationsListPresenter;
@@ -52,7 +54,8 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     }
 
     private void setupInjection() {
-
+        CarLocatorApp app = (CarLocatorApp) getActivity().getApplication();
+        app.getLocationsListComponent(this, this).inject(this);
     }
 
     @Override
@@ -60,6 +63,7 @@ public class LocationsListFragment extends Fragment implements LocationsListView
         View view = inflater.inflate(R.layout.fragment_locations_list, container, false);
         ButterKnife.bind(this, view);
         setupRecyclerView();
+        presenter.getCarLocations();
         return view;
     }
 
@@ -114,7 +118,7 @@ public class LocationsListFragment extends Fragment implements LocationsListView
 
     @Override
     public void onDisplayStreetViewClick(CarLocation carLocation) {
-        String uri = "google.streetview:cbll=:" + carLocation.getLatitude() + "," + carLocation.getLongitude();
+        String uri = "google.streetview:cbll=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
         sendIntent(uri);
     }
 
@@ -146,7 +150,7 @@ public class LocationsListFragment extends Fragment implements LocationsListView
 
     @Override
     public void onCarLocationUpdated(CarLocation carLocation) {
-        adapter.updateCarLocation(carLocation);
+        presenter.getCarLocations();
     }
 
     @Override

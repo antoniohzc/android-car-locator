@@ -22,7 +22,7 @@
     <string name="locationmap.notice.notadded">There is a location added on %s too near to current car location</string>
 
     <string name="locationslist.item.lbl.street">Street</string>
-    <string name="locationslist.item.lbl.city">%s, %s</string>
+    <string name="locationslist.item.lbl.city">City, ZIP</string>
     <string name="locationslist.item.lbl.date">Date</string>
     <string name="locationslist.notice.emptylist">Empty list</string>
 

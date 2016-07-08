@@ -1,5 +1,9 @@
 package hzc.antonio.carlocator.locationslist;
 
+import android.util.Log;
+
+import org.greenrobot.eventbus.Subscribe;
+
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.libs.base.EventBus;
 import hzc.antonio.carlocator.locationslist.events.LocationsListEvent;
@@ -55,6 +59,7 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
     }
 
     @Override
+    @Subscribe
     public void onEventMainThread(LocationsListEvent event) {
         if (view != null) {
             view.showList();

@@ -1,5 +1,7 @@
 package hzc.antonio.carlocator.locationslist;
 
+import android.util.Log;
+
 import com.raizlabs.android.dbflow.sql.language.NameAlias;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -62,6 +64,15 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
     public void removeCarLocation(CarLocation carLocation) {
         carLocation.delete();
         post(LocationsListEvent.ON_CAR_LOCATION_REMOVED, Arrays.asList(carLocation));
+
+        List<CarLocation> list = SQLite.select()
+                .from(CarLocation.class)
+                .where(CarLocation_Table.favourite.eq(true))
+                .queryList();
+
+        if (list.isEmpty()) {
+            post(LocationsListEvent.ON_EMPTY_LIST);
+        }
     }
 
 
@@ -79,5 +90,6 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
         event.setType(type);
         event.setCarLocations(carLocations);
         event.setError(error);
+        eventBus.post(event);
     }
 }

@@ -103,6 +103,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     public void onMapReady(GoogleMap googleMap) {
         setupGoogleMap(googleMap);
         presenter.getCarLocation();
+        handleShowCarLocation();
     }
 
     @Override

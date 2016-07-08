@@ -10,4 +10,5 @@
 
     <dimen name="locationslist_size_item_map_image">96dp</dimen>
     <dimen name="locationslist_padding_top_item_line">4dp</dimen>
+    <dimen name="padding_button_icon">6dp</dimen>
 </resources>
