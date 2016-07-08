@@ -12,6 +12,7 @@ import dagger.Provides;
 import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.libs.base.EventBus;
+import hzc.antonio.carlocator.libs.base.ImageLoader;
 import hzc.antonio.carlocator.locationslist.LocationsListInteractor;
 import hzc.antonio.carlocator.locationslist.LocationsListInteractorImpl;
 import hzc.antonio.carlocator.locationslist.LocationsListPresenter;
@@ -53,8 +54,8 @@ public class LocationsListModule {
     }
 
     @Provides @Singleton
-    LocationsListAdapter providesLocationsListAdapter(Context context, Util util, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
-        return new LocationsListAdapter(context, util, dataset, onItemClickListener);
+    LocationsListAdapter providesLocationsListAdapter(Context context, Util util, ImageLoader imageLoader, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
+        return new LocationsListAdapter(context, util, imageLoader, dataset, onItemClickListener);
     }
 
     @Provides @Singleton

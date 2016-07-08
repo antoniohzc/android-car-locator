@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.entities.CustomAddress;
 
 public class Util {
@@ -64,6 +65,16 @@ public class Util {
         mAddress.setFeaturedName("");
 
         return mAddress;
+    }
+
+    public String getImageMapUrl(CarLocation carLocation) {
+        return "https://maps.googleapis.com/maps/api/staticmap?" +
+                "center=" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
+                "&zoom=16" +
+                "&size=180x180" +
+                "&scale=2" +
+                "&markers=color:green%7Csize:normal%7C" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
+                "&style=feature:all%7Celement:labels%7Clightness:25";
     }
 
 

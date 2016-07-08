@@ -18,12 +18,22 @@ import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.entities.CustomAddress;
+import hzc.antonio.carlocator.libs.base.ImageLoader;
 
 public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdapter.ViewHolder> {
     private Context context;
     private Util util;
+    private ImageLoader imageLoader;
     private List<CarLocation> dataset;
     private OnItemClickListener onItemClickListener;
+
+    public LocationsListAdapter(Context context, Util util, ImageLoader imageLoader, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
+        this.context = context;
+        this.util = util;
+        this.imageLoader = imageLoader;
+        this.dataset = dataset;
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public LocationsListAdapter(Context context, Util util, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
         this.context = context;
@@ -51,9 +61,7 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         holder.lblStreet.setText(address.getStreet());
         holder.lblCity.setText(address.getCity() + ", " + address.getPostalCode());
 
-        // Map image
-
-
+        imageLoader.load(holder.imgMap, util.getImageMapUrl(carLocation));
 
         int currentColor = ContextCompat.getColor(context, R.color.colorAccent);
         int notCurrentColor = ContextCompat.getColor(context, R.color.colorTextList);

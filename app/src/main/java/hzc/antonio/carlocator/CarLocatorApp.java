@@ -35,6 +35,7 @@ public class CarLocatorApp extends Application {
 
     private CarLocatorAppModule carLocatorAppModule;
     private DomainModule domainModule;
+    private LibsModule libsModule;
 
     @Override
     public void onCreate() {
@@ -55,6 +56,7 @@ public class CarLocatorApp extends Application {
     private void initModules() {
         carLocatorAppModule = new CarLocatorAppModule(this);
         domainModule = new DomainModule(FIREBASE_URL);
+        libsModule = new LibsModule(this);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class CarLocatorApp extends Application {
         return DaggerLoginComponent.builder()
                 .carLocatorAppModule(carLocatorAppModule)
                 .domainModule(domainModule)
-                .libsModule(new LibsModule(this))
+                .libsModule(libsModule)
                 .loginModule(new LoginModule(view))
                 .build();
     }
@@ -88,7 +90,7 @@ public class CarLocatorApp extends Application {
         return DaggerMainComponent.builder()
                 .carLocatorAppModule(carLocatorAppModule)
                 .domainModule(domainModule)
-                .libsModule(new LibsModule(this))
+                .libsModule(libsModule)
                 .mainModule(new MainModule(view, titles, fragments, fragmentManager))
                 .build();
     }
@@ -96,7 +98,7 @@ public class CarLocatorApp extends Application {
     public LocationMapComponent getLocationMapComponent(LocationMapView view) {
         return DaggerLocationMapComponent.builder()
                 .carLocatorAppModule(carLocatorAppModule)
-                .libsModule(new LibsModule(this))
+                .libsModule(libsModule)
                 .locationMapModule(new LocationMapModule(view))
                 .build();
     }
@@ -105,7 +107,7 @@ public class CarLocatorApp extends Application {
         return DaggerLocationsListComponent.builder()
                 .carLocatorAppModule(carLocatorAppModule)
                 .domainModule(domainModule)
-                .libsModule(new LibsModule(this))
+                .libsModule(libsModule)
                 .locationsListModule(new LocationsListModule(view, onItemClickListener))
                 .build();
     }
