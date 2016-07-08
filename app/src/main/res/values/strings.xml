@@ -24,6 +24,7 @@
     <string name="locationslist.item.lbl.street">Street</string>
     <string name="locationslist.item.lbl.city">%s, %s</string>
     <string name="locationslist.item.lbl.date">Date</string>
+    <string name="locationslist.notice.emptylist">Empty list</string>
 
     <string name="test.error.location.notavailable">Location not available</string>
     <string name="test.btn.zoom">Car Locat.</string>

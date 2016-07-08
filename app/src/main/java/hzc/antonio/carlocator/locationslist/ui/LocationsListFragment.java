@@ -145,8 +145,8 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     }
 
     @Override
-    public void onCarLocationUpdated() {
-        adapter.notifyDataSetChanged();
+    public void onCarLocationUpdated(CarLocation carLocation) {
+        adapter.updateCarLocation(carLocation);
     }
 
     @Override
@@ -156,6 +156,9 @@ public class LocationsListFragment extends Fragment implements LocationsListView
 
     @Override
     public void onCarLocationsError(String error) {
+        if (error.isEmpty()) {
+            error = getString(R.string.locationslist_notice_emptylist);
+        }
         Snackbar.make(container, error, Snackbar.LENGTH_SHORT).show();
     }
     //endregion

@@ -11,7 +11,7 @@ public interface LocationsListView {
     void hideProgress();
 
     void setCarLocations(List<CarLocation> list);
-    void onCarLocationUpdated();
+    void onCarLocationUpdated(CarLocation carLocation);
     void onCarLocationRemoved(CarLocation carLocation);
     void onCarLocationsError(String error);
 }

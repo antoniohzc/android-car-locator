@@ -87,6 +87,15 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         notifyDataSetChanged();
     }
 
+    public void updateCarLocation(CarLocation carLocation) {
+        for (CarLocation item : dataset) {
+            if (item.equals(carLocation)) {
+                item = carLocation;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public void removeCarLocation(CarLocation carLocation) {
         dataset.remove(carLocation);
         notifyDataSetChanged();
