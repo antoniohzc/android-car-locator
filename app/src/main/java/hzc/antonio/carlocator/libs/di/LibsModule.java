@@ -29,9 +29,9 @@ public class LibsModule {
         return org.greenrobot.eventbus.EventBus.getDefault();
     }
 
-    @Provides
-    @Singleton
-    Context providesContext() {
-        return this.context;
-    }
+//    @Provides
+//    @Singleton
+//    Context providesContext() {
+//        return this.context;
+//    }
 }

@@ -5,5 +5,10 @@
 
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="appbar_margin_right_user">48dp</dimen>
+
+    <dimen name="locationmap_padding_icon_button">6dp</dimen>
+
+    <dimen name="locationslist_size_item_map_image">96dp</dimen>
+    <dimen name="locationslist_padding_top_item_line">4dp</dimen>
     <dimen name="padding_button_icon">6dp</dimen>
 </resources>

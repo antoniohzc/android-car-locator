@@ -56,6 +56,6 @@ dependencies {
     compile "com.firebase:firebase-client-android:$rootProject.ext.firebaseClientVersion"
     apt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    compile "de.hdodenhof:circleimageview:$rootProject.ext.circleImageViewVersion"
     compile "org.greenrobot:eventbus:$rootProject.ext.eventBusVersion"
-    compile 'com.android.support:support-v4:23.4.0'
 }
