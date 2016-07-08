@@ -159,7 +159,10 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
 
     @OnClick(R.id.btnAddToList)
     public void handleAddToList() {
-        if (carLocation != null) {
+        if (map != null && carLocation != null) {
+
+
+
             presenter.addToList(carLocation);
         }
     }
