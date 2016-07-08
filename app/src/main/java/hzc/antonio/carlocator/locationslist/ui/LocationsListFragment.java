@@ -1,4 +1,4 @@
-package hzc.antonio.carlocator.locationslist;
+package hzc.antonio.carlocator.locationslist.ui;
 
 
 import android.os.Bundle;
