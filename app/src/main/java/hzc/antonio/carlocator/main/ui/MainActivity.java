@@ -34,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.locationmap.ui.LocationMapFragment;
-import hzc.antonio.carlocator.LocationsListFragment;
+import hzc.antonio.carlocator.locationslist.LocationsListFragment;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.login.ui.LoginActivity;
 import hzc.antonio.carlocator.main.MainPresenter;
