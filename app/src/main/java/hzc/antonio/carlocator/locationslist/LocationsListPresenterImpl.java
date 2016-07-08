@@ -75,6 +75,9 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
                     case LocationsListEvent.ON_CAR_LOCATION_REMOVED:
                         view.onCarLocationRemoved(event.getCarLocations().get(0));
                         break;
+                    case LocationsListEvent.ON_EMPTY_LIST:
+                        view.onEmptyList();
+                        break;
                 }
             }
         }

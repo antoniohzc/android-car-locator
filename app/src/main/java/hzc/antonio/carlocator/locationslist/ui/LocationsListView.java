@@ -13,5 +13,6 @@ public interface LocationsListView {
     void setCarLocations(List<CarLocation> list);
     void onCarLocationUpdated(CarLocation carLocation);
     void onCarLocationRemoved(CarLocation carLocation);
+    void onEmptyList();
     void onCarLocationsError(String error);
 }

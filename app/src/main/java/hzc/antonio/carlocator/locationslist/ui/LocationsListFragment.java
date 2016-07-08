@@ -155,10 +155,13 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     }
 
     @Override
+    public void onEmptyList() {
+        String msg = getString(R.string.locationslist_notice_emptylist);
+        Snackbar.make(container, msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onCarLocationsError(String error) {
-        if (error.isEmpty()) {
-            error = getString(R.string.locationslist_notice_emptylist);
-        }
         Snackbar.make(container, error, Snackbar.LENGTH_SHORT).show();
     }
     //endregion

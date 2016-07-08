@@ -12,6 +12,7 @@ public class LocationsListEvent {
     public static final int ON_SET_CAR_LOCATIONS = 0;
     public static final int ON_CAR_LOCATION_UPDATED = 1;
     public static final int ON_CAR_LOCATION_REMOVED = 2;
+    public static final int ON_EMPTY_LIST = 3;
 
 
     public int getType() {
