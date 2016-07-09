@@ -59,16 +59,18 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         CustomAddress address = util.getCustomAddressFromLocation(lat, lng);
 
         holder.lblStreet.setText(address.getStreet());
-        holder.lblCity.setText(address.getCity() + ", " + address.getPostalCode());
+        holder.lblCity.setText(address.getCity());
 
         imageLoader.load(holder.imgMap, util.getImageMapUrl(carLocation));
 
         int currentColor = ContextCompat.getColor(context, R.color.colorAccent);
-        int notCurrentColor = ContextCompat.getColor(context, R.color.colorTextList);
+        int notCurrentColor = ContextCompat.getColor(context, R.color.colorSecondaryText);
         if (carLocation.isCurrent()) {
             holder.btnLaunchNavigation.setVisibility(View.VISIBLE);
             holder.btnRemove.setVisibility(View.GONE);
             holder.btnMakeCurrent.setVisibility(View.GONE);
+
+            holder.btnDisplayStreetView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_streetview_24dp_accent));
 
             holder.lblStreet.setTextColor(currentColor);
             holder.lblCity.setTextColor(currentColor);
@@ -78,6 +80,8 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
             holder.btnLaunchNavigation.setVisibility(View.GONE);
             holder.btnRemove.setVisibility(View.VISIBLE);
             holder.btnMakeCurrent.setVisibility(View.VISIBLE);
+
+            holder.btnDisplayStreetView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_streetview_24dp_primary));
 
             holder.lblStreet.setTextColor(notCurrentColor);
             holder.lblCity.setTextColor(notCurrentColor);

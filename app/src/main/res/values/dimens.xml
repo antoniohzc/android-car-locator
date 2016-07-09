@@ -7,7 +7,12 @@
     <dimen name="appbar_margin_right_user">48dp</dimen>
 
     <dimen name="locationmap_padding_icon_button">6dp</dimen>
+    <dimen name="locationmap_margin_icon_button">48dp</dimen>
+    <dimen name="locationmap_elevation_button">2px</dimen>
 
-    <dimen name="locationslist_size_item_map_image">96dp</dimen>
+    <dimen name="locationslist_size_item_map_image">104dp</dimen>
+    <dimen name="locationslist_size_item_btn">24dp</dimen>
     <dimen name="locationslist_padding_top_item_line">4dp</dimen>
+    <dimen name="locationslist_margin_vertical_cardview">4dp</dimen>
+    <dimen name="locationslist_margin_horizontal_cardview">8dp</dimen>
 </resources>

@@ -15,14 +15,11 @@
     <string name="main.menu.action.logout">Sign out</string>
     <string name="main.error.location.notavailable">Current location not available</string>
 
-    <string name="locationmap.btn.zoom">Car Location </string>
-    <string name="locationmap.btn.add">Car Location </string>
-    <string name="locationmap.btn.save">My Location </string>
-    <string name="locationmap.notice.added">Current car location successfully added to locations list</string>
+    <string name="locationmap.notice.added">Current car location added to locations list</string>
     <string name="locationmap.notice.notadded">There is a location added on %s too near to current car location</string>
 
     <string name="locationslist.item.lbl.street">Street</string>
-    <string name="locationslist.item.lbl.city">City, ZIP</string>
+    <string name="locationslist.item.lbl.city">ZIP City</string>
     <string name="locationslist.item.lbl.date">Date</string>
     <string name="locationslist.notice.emptylist">Empty list</string>
 </resources>

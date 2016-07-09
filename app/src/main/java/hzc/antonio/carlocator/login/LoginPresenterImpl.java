@@ -40,8 +40,8 @@ public class LoginPresenterImpl implements LoginPresenter{
     @Override
     public void registerNewUser(String email, String password) {
         if (view != null) {
-            view.disableInputs();
-            view.showProgress();
+            view.enableInputs();
+            view.hideProgress();
         }
         interactor.doSignUp(email, password);
     }

@@ -10,64 +10,53 @@
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_above="@+id/layoutButtons"/>
+        android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/locationmap_padding_icon_button"
+        android:padding="@dimen/appbar_padding_top"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/transparent"
         android:weightSum="3">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnCarLocation"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableRight="@android:drawable/ic_menu_view"
-            android:drawablePadding="@dimen/locationmap_padding_icon_button"
-            android:drawableTint="@color/colorAccent"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@color/colorAccent"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/locationmap.btn.zoom"/>
+            android:padding="@dimen/locationmap_padding_icon_button"
+            android:layout_toLeftOf="@+id/btnAddToList"
+            android:layout_toStartOf="@+id/btnAddToList"
+            android:backgroundTint="@color/colorSemiTransparent"
+            android:elevation="@dimen/locationmap_elevation_button"
+            android:src="@drawable/btn_show_car"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnAddToList"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableRight="@android:drawable/ic_menu_add"
-            android:drawablePadding="@dimen/locationmap_padding_icon_button"
-            android:drawableTint="@color/colorAccent"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@color/colorAccent"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/locationmap.btn.add"/>
+            android:padding="@dimen/locationmap_padding_icon_button"
+            android:layout_marginRight="@dimen/locationmap_margin_icon_button"
+            android:layout_marginLeft="@dimen/locationmap_margin_icon_button"
+            android:layout_marginEnd="@dimen/locationmap_margin_icon_button"
+            android:layout_marginStart="@dimen/locationmap_margin_icon_button"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/colorSemiTransparent"
+            android:elevation="@dimen/locationmap_elevation_button"
+            android:src="@drawable/btn_add_list"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSaveCurrentLocation"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableRight="@android:drawable/ic_dialog_map"
-            android:drawablePadding="@dimen/locationmap_padding_icon_button"
-            android:drawableTint="@color/colorAccent"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@color/colorAccent"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/locationmap.btn.save"/>
+            android:padding="@dimen/locationmap_padding_icon_button"
+            android:layout_toRightOf="@+id/btnAddToList"
+            android:layout_toEndOf="@+id/btnAddToList"
+            android:backgroundTint="@color/colorSemiTransparent"
+            android:elevation="@dimen/locationmap_elevation_button"
+            android:src="@drawable/btn_set_current"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

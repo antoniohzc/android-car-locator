@@ -269,8 +269,10 @@ public class MainActivity extends AppCompatActivity implements MainView,
     }
 
     private void stopLocationUpdates() {
-        requestingLocationUpdates = false;
-        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        if (googleApiClient.isConnected()) {
+            requestingLocationUpdates = false;
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        }
     }
 
     @Override

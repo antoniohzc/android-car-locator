@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     @BindView(R.id.container) FrameLayout container;
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
     @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.lblEmptyList) TextView lblEmptyList;
 
     @Inject
     LocationsListPresenter presenter;
@@ -108,6 +110,15 @@ public class LocationsListFragment extends Fragment implements LocationsListView
         progressBar.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showMessageEmptyList() {
+        lblEmptyList.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideMessageEmptyList() {
+        lblEmptyList.setVisibility(View.GONE);
+    }
 
     //region User action handlers
     @Override
@@ -156,12 +167,6 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     @Override
     public void onCarLocationRemoved(CarLocation carLocation) {
         adapter.removeCarLocation(carLocation);
-    }
-
-    @Override
-    public void onEmptyList() {
-        String msg = getString(R.string.locationslist_notice_emptylist);
-        Snackbar.make(container, msg, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

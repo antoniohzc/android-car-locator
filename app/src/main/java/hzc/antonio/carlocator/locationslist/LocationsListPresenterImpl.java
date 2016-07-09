@@ -33,6 +33,7 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
     public void getCarLocations() {
         if (view != null) {
             view.hideList();
+            view.hideMessageEmptyList();
             view.showProgress();
         }
         interactor.getCarLocations();
@@ -42,6 +43,7 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
     public void updateCarLocationMakeCurrent(CarLocation carLocation) {
         if (view != null) {
             view.hideList();
+            view.hideMessageEmptyList();
             view.showProgress();
         }
         interactor.updateCarLocationMakeCurrent(carLocation);
@@ -51,6 +53,7 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
     public void removeCarLocation(CarLocation carLocation) {
         if (view != null) {
             view.hideList();
+            view.hideMessageEmptyList();
             view.showProgress();
         }
         interactor.removeCarLocation(carLocation);
@@ -61,6 +64,7 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
     public void onEventMainThread(LocationsListEvent event) {
         if (view != null) {
             view.showList();
+            view.hideMessageEmptyList();
             view.hideProgress();
 
             String error = event.getError();
@@ -79,7 +83,9 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
                         view.onCarLocationRemoved(event.getCarLocations().get(0));
                         break;
                     case LocationsListEvent.ON_EMPTY_LIST:
-                        view.onEmptyList();
+                        view.hideList();
+                        view.hideProgress();
+                        view.showMessageEmptyList();
                         break;
                 }
             }

@@ -9,10 +9,11 @@ public interface LocationsListView {
     void hideList();
     void showProgress();
     void hideProgress();
+    void showMessageEmptyList();
+    void hideMessageEmptyList();
 
     void setCarLocations(List<CarLocation> list);
     void onCarLocationUpdated(CarLocation carLocation);
     void onCarLocationRemoved(CarLocation carLocation);
-    void onEmptyList();
     void onCarLocationsError(String error);
 }

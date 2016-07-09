@@ -2,8 +2,6 @@ package hzc.antonio.carlocator.locationmap.ui;
 
 
 import android.Manifest;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -14,17 +12,18 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -47,7 +46,7 @@ import hzc.antonio.carlocator.main.ui.MainActivity;
 public class LocationMapFragment extends Fragment implements LocationMapView, OnMapReadyCallback {
 
     @BindView(R.id.container) RelativeLayout container;
-    @BindView(R.id.btnAddToList) Button btnAddToList;
+    @BindView(R.id.btnAddToList) ImageButton btnAddToList;
 
     @Inject
     LocationMapPresenter presenter;
@@ -102,7 +101,10 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     public void onMapReady(GoogleMap googleMap) {
         setupGoogleMap(googleMap);
         presenter.getCarLocation();
-        handleShowCarLocation();
+
+        if (carLocation != null) {
+            moveCamera(carLocation.getLatLng());
+        }
     }
 
     @Override
@@ -160,9 +162,6 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     @OnClick(R.id.btnAddToList)
     public void handleAddToList() {
         if (map != null && carLocation != null) {
-
-
-
             presenter.addToList(carLocation);
         }
     }
@@ -178,6 +177,16 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
                 .build();
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
+
+    private void moveCamera(LatLng location) {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(location)
+                .zoom(17)
+                .bearing(0)
+                .tilt(40)
+                .build();
+        map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
     //endregion
 
 
@@ -188,7 +197,10 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
         LatLng location = carLocation.getLatLng();
 
         map.clear();
-        map.addMarker(new MarkerOptions().position(location));
+        map.addMarker(new MarkerOptions()
+                .position(location)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marker))
+        );
 
         // animateCamera(location);
     }
@@ -208,11 +220,13 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     @Override
     public void enableAddButton() {
         btnAddToList.setEnabled(true);
+        btnAddToList.setImageDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.btn_add_list));
     }
 
     @Override
     public void disableAddButton() {
         btnAddToList.setEnabled(false);
+        btnAddToList.setImageDrawable(ContextCompat.getDrawable(this.getContext(), R.drawable.btn_add_list_disabled));
     }
 
     @Override

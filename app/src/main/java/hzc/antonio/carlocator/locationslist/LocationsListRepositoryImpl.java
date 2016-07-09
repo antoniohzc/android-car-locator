@@ -23,6 +23,7 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
         List<CarLocation> list = SQLite.select()
                 .from(CarLocation.class)
                 .where(CarLocation_Table.favourite.eq(true))
+                .orderBy(CarLocation_Table.current, false)
                 .orderBy(CarLocation_Table.timestamp, false)
                 .queryList();
 
