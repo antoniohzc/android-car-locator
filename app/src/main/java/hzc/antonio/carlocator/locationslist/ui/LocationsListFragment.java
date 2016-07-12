@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.R;
+import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.locationslist.LocationsListPresenter;
 import hzc.antonio.carlocator.locationslist.ui.adapters.LocationsListAdapter;
@@ -123,29 +124,22 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     //region User action handlers
     @Override
     public void onShareClick(CarLocation carLocation) {
-        String uri = "http://maps.google.com/maps?q=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareintent_subject));
-        intent.putExtra(Intent.EXTRA_TEXT, uri);
-        startActivity(Intent.createChooser(intent, getString(R.string.shareintent_title)));
+        Intent intent = Util.getShareIntent(carLocation, getString(R.string.shareintent_subject));
+        String chooserTitle = getString(R.string.shareintent_title);
+        startActivity(Intent.createChooser(intent, chooserTitle));
     }
 
     @Override
     public void onDisplayStreetViewClick(CarLocation carLocation) {
-        String uri = "google.streetview:cbll=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
-        sendIntent(uri);
+        Intent intent = Util.getStreetViewIntent(carLocation);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     @Override
     public void onLaunchNavigationClick(CarLocation carLocation) {
-        String uri = "google.navigation:q=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
-        sendIntent(uri);
-    }
-
-    private void sendIntent(String uri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        intent.setPackage("com.google.android.apps.maps");
+        Intent intent = Util.getNavigateToIntent(carLocation);
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
         }

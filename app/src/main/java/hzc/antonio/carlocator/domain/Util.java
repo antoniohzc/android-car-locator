@@ -1,7 +1,9 @@
 package hzc.antonio.carlocator.domain;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.entities.CustomAddress;
 
@@ -83,6 +86,10 @@ public class Util {
     }
 
 
+    public static String generateTimestamp() {
+        return new SimpleDateFormat("yyyy.MM.dd - HH:mm").format(new Date());
+    }
+
     public static String getImageMapUrl(CarLocation carLocation) {
         return "https://maps.googleapis.com/maps/api/staticmap?" +
                 "center=" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
@@ -93,9 +100,28 @@ public class Util {
                 "&style=feature:all%7Celement:labels%7Clightness:25";
     }
 
+    public static Intent getShareIntent(CarLocation carLocation, String subject) {
+        String uri = "http://maps.google.com/maps?q=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, uri);
+        return intent;
+    }
 
-    public static String generateTimestamp() {
-        return new SimpleDateFormat("yyyy.MM.dd - HH:mm").format(new Date());
+    public static Intent getStreetViewIntent(CarLocation carLocation) {
+        String uri = "google.streetview:cbll=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        return intent;
+    }
+
+
+    public static Intent getNavigateToIntent(CarLocation carLocation) {
+        String uri = "google.navigation:q=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        return intent;
     }
 
 }
