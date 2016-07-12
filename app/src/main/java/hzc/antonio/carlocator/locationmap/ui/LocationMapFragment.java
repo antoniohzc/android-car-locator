@@ -343,6 +343,20 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
 
         map.setMyLocationEnabled(true);
 
+        map.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+            @Override
+            public boolean onMyLocationButtonClick() {
+                LatLng location = getLastKnownLocation();
+                if (location != null) {
+                    animateCamera(location);
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+
         map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
