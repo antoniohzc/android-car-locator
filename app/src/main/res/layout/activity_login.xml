@@ -13,8 +13,8 @@
     tools:context=".login.ui.LoginActivity">
 
     <ImageView
-        android:layout_width="@dimen/locationslist_size_item_map_image"
-        android:layout_height="@dimen/locationslist_size_item_map_image"
+        android:layout_width="@dimen/login_size_icon"
+        android:layout_height="@dimen/login_size_icon"
         android:src="@drawable/icon_login"
         android:layout_above="@+id/wrapperEmail"
         android:layout_marginBottom="@dimen/appbar_padding_top"

@@ -11,8 +11,8 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/locationslist_margin_horizontal_cardview"
-        android:paddingBottom="@dimen/locationslist_margin_horizontal_cardview"
+        android:layout_margin="@dimen/locationslist_margin_cardview"
+        android:padding="@dimen/locationslist_margin_cardview"
         android:scrollbars="vertical"/>
 
     <ProgressBar

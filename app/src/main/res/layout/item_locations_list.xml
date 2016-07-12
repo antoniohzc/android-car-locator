@@ -4,16 +4,13 @@
     xmlns:car_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/locationslist_margin_vertical_cardview"
-    android:layout_marginBottom="@dimen/locationslist_margin_vertical_cardview"
-    android:layout_marginLeft="@dimen/locationslist_margin_horizontal_cardview"
-    android:layout_marginRight="@dimen/locationslist_margin_horizontal_cardview"
+    android:layout_margin="@dimen/locationslist_margin_cardview"
     car_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/appbar_padding_top">
+        android:layout_height="@dimen/locationslist_height_layout"
+        android:layout_margin="@dimen/locationslist_margin_items">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -29,7 +26,23 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="@string/locationslist.item.lbl.city" />
+
+            <TextView
+                android:id="@+id/lblZip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/locationslist_margin_items"
+                android:layout_marginStart="@dimen/locationslist_margin_items"
+                android:layout_toRightOf="@+id/lblCity"
+                android:layout_toEndOf="@+id/lblCity"
+                android:layout_alignBaseline="@+id/lblCity"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/locationslist.item.lbl.zip" />
 
             <TextView
                 android:id="@+id/lblStreet"
@@ -37,9 +50,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblCity"
                 android:paddingTop="@dimen/locationslist_padding_top_item_line"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:maxLines="1"
                 android:ellipsize="end"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="@string/locationslist.item.lbl.street"/>
 
             <TextView
@@ -49,14 +63,23 @@
                 android:layout_below="@+id/lblStreet"
                 android:paddingTop="@dimen/locationslist_padding_top_item_line"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="@string/locationslist.item.lbl.date"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/lblDate"
-                android:paddingTop="@dimen/locationslist_padding_top_item_line">
+                android:layout_alignParentBottom="true">
+
+                <ImageButton
+                    android:id="@+id/btnShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_share_24dp_primary"
+                    android:background="@android:color/transparent"/>
 
                 <ImageButton
                     android:id="@+id/btnDisplayStreetView"
@@ -68,21 +91,21 @@
                     android:background="@android:color/transparent"/>
 
                 <ImageButton
+                    android:id="@+id/btnLaunchNavigation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_directions_24dp_accent"
+                    android:background="@android:color/transparent"/>
+
+                <ImageButton
                     android:id="@+id/btnRemove"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ic_delete_24dp_primary"
-                    android:background="@android:color/transparent"/>
-
-                <ImageButton
-                    android:id="@+id/btnLaunchNavigation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:src="@drawable/ic_navigation_24dp_accent"
                     android:background="@android:color/transparent"/>
 
                 <ImageButton
@@ -101,12 +124,12 @@
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imgMap"
-            android:layout_width="@dimen/locationslist_size_item_map_image"
-            android:layout_height="@dimen/locationslist_size_item_map_image"
+            android:layout_width="@dimen/locationslist_height_layout"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/locationslist_margin_items"
+            android:layout_marginStart="@dimen/locationslist_margin_items"
             android:src="@drawable/img_map_default"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/colorPrimary"/>

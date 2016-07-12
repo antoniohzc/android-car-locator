@@ -46,8 +46,9 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
 
         holder.setOnItemClickListener(carLocation, onItemClickListener);
 
-        holder.lblCity.setText(address.getCity() + " (" + address.getProvince() + ")");
-        holder.lblStreet.setText(address.getStreet() + " (" + address.getPostalCode() + ")");
+        holder.lblCity.setText(address.getCity());
+        holder.lblZip.setText("(" + address.getPostalCode() + " " + address.getProvince() + ")");
+        holder.lblStreet.setText(address.getStreet());
         holder.lblDate.setText(carLocation.getTimestamp());
 
         imageLoader.load(holder.imgMap, Util.getImageMapUrl(carLocation));
@@ -59,10 +60,12 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
             holder.btnRemove.setVisibility(View.GONE);
             holder.btnMakeCurrent.setVisibility(View.GONE);
 
+            holder.btnShare.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_share_24dp_accent));
             holder.btnDisplayStreetView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_streetview_24dp_accent));
 
-            holder.lblStreet.setTextColor(currentColor);
             holder.lblCity.setTextColor(currentColor);
+            holder.lblZip.setTextColor(currentColor);
+            holder.lblStreet.setTextColor(currentColor);
             holder.lblDate.setTextColor(currentColor);
         }
         else {
@@ -70,10 +73,12 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
             holder.btnRemove.setVisibility(View.VISIBLE);
             holder.btnMakeCurrent.setVisibility(View.VISIBLE);
 
+            holder.btnShare.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_share_24dp_primary));
             holder.btnDisplayStreetView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_streetview_24dp_primary));
 
-            holder.lblStreet.setTextColor(notCurrentColor);
             holder.lblCity.setTextColor(notCurrentColor);
+            holder.lblZip.setTextColor(notCurrentColor);
+            holder.lblStreet.setTextColor(notCurrentColor);
             holder.lblDate.setTextColor(notCurrentColor);
         }
     }
@@ -97,9 +102,11 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         @BindView(R.id.imgMap) CircleImageView imgMap;
         @BindView(R.id.lblStreet) TextView lblStreet;
         @BindView(R.id.lblCity) TextView lblCity;
+        @BindView(R.id.lblZip) TextView lblZip;
         @BindView(R.id.lblDate) TextView lblDate;
-        @BindView(R.id.btnLaunchNavigation) ImageButton btnLaunchNavigation;
+        @BindView(R.id.btnShare) ImageButton btnShare;
         @BindView(R.id.btnDisplayStreetView) ImageButton btnDisplayStreetView;
+        @BindView(R.id.btnLaunchNavigation) ImageButton btnLaunchNavigation;
         @BindView(R.id.btnRemove) ImageButton btnRemove;
         @BindView(R.id.btnMakeCurrent) ImageButton btnMakeCurrent;
 
@@ -109,10 +116,10 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         }
 
         public void setOnItemClickListener(final CarLocation carLocation, final OnItemClickListener listener) {
-            btnLaunchNavigation.setOnClickListener(new View.OnClickListener() {
+            btnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onLaunchNavigationClick(carLocation);
+                    listener.onShareClick(carLocation);
                 }
             });
 
@@ -122,6 +129,14 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
                     listener.onDisplayStreetViewClick(carLocation);
                 }
             });
+
+            btnLaunchNavigation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onLaunchNavigationClick(carLocation);
+                }
+            });
+
 
             btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override

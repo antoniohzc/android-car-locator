@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,16 +119,27 @@ public class LocationsListFragment extends Fragment implements LocationsListView
         lblEmptyList.setVisibility(View.GONE);
     }
 
+
     //region User action handlers
     @Override
-    public void onLaunchNavigationClick(CarLocation carLocation) {
-        String uri = "google.navigation:q=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
-        sendIntent(uri);
+    public void onShareClick(CarLocation carLocation) {
+        String uri = "http://maps.google.com/maps?q=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareintent_subject));
+        intent.putExtra(Intent.EXTRA_TEXT, uri);
+        startActivity(Intent.createChooser(intent, getString(R.string.shareintent_title)));
     }
 
     @Override
     public void onDisplayStreetViewClick(CarLocation carLocation) {
         String uri = "google.streetview:cbll=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
+        sendIntent(uri);
+    }
+
+    @Override
+    public void onLaunchNavigationClick(CarLocation carLocation) {
+        String uri = "google.navigation:q=" + carLocation.getLatitude() + "," + carLocation.getLongitude();
         sendIntent(uri);
     }
 
