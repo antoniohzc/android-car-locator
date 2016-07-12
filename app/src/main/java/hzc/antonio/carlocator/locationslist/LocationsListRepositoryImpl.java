@@ -8,6 +8,8 @@ import java.util.List;
 import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.entities.CarLocation_Table;
+import hzc.antonio.carlocator.entities.CustomAddress;
+import hzc.antonio.carlocator.entities.CustomAddress_Table;
 import hzc.antonio.carlocator.libs.base.EventBus;
 import hzc.antonio.carlocator.locationslist.events.LocationsListEvent;
 
@@ -31,6 +33,11 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
             post(LocationsListEvent.ON_EMPTY_LIST);
         }
         else {
+            for (CarLocation item : list) {
+                CustomAddress address = getCustomAddress(item);
+                item.setAddress(address != null ? address : Util.getCustomAddressDefaults());
+            }
+
             post(LocationsListEvent.ON_SET_CAR_LOCATIONS, list);
         }
     }
@@ -49,6 +56,7 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
             }
             else {
                 storedLocation.delete();
+                deleteCustomAddress(storedLocation);
             }
         }
 
@@ -61,6 +69,7 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
     @Override
     public void removeCarLocation(CarLocation carLocation) {
         carLocation.delete();
+        deleteCustomAddress(carLocation);
         post(LocationsListEvent.ON_CAR_LOCATION_REMOVED, Arrays.asList(carLocation));
 
         List<CarLocation> list = SQLite.select()
@@ -73,6 +82,20 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
         }
     }
 
+    private CustomAddress getCustomAddress(CarLocation carLocation) {
+        CustomAddress address = SQLite.select()
+                .from(CustomAddress.class)
+                .where(CustomAddress_Table.carLocationId.eq(carLocation.getId()))
+                .querySingle();
+        return address;
+    }
+
+    private void deleteCustomAddress(CarLocation carLocation) {
+        CustomAddress address = getCustomAddress(carLocation);
+        if (address != null) {
+            address.delete();
+        }
+    }
 
     private void post(int type) {
         post(type, null, null);

@@ -5,19 +5,23 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.List;
 
+import hzc.antonio.carlocator.domain.CustomAddressFromLocationCallback;
 import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.entities.CarLocation_Table;
+import hzc.antonio.carlocator.entities.CustomAddress;
 import hzc.antonio.carlocator.libs.base.EventBus;
 import hzc.antonio.carlocator.locationmap.events.LocationMapEvent;
 
 public class LocationMapRepositoryImpl implements LocationMapRepository {
     private EventBus eventBus;
+    private Util util;
 
     private static final double MIN_DISTANCE = 25d;
 
-    public LocationMapRepositoryImpl(EventBus eventBus) {
+    public LocationMapRepositoryImpl(EventBus eventBus, Util util) {
         this.eventBus = eventBus;
+        this.util = util;
     }
 
     @Override
@@ -55,13 +59,13 @@ public class LocationMapRepositoryImpl implements LocationMapRepository {
         carLocation.setTimestamp(Util.generateTimestamp());
         carLocation.setCurrent(true);
         carLocation.setFavourite(false);
-
         carLocation.insert();
+
         post(LocationMapEvent.ON_SET_CAR_LOCATION, carLocation);
     }
 
     @Override
-    public void addToList(CarLocation carLocation) {
+    public void addToList(final CarLocation carLocation) {
         List<CarLocation> storedLocations = SQLite.select()
                 .from(CarLocation.class)
                 .where(CarLocation_Table.favourite.eq(true))
@@ -74,9 +78,18 @@ public class LocationMapRepositoryImpl implements LocationMapRepository {
             }
         }
 
-        carLocation.setFavourite(true);
-        carLocation.update();
-        post(LocationMapEvent.ON_ADDED_TO_LIST);
+        util.getCustomAddressFromLocation(carLocation.getLatitude(), carLocation.getLongitude(), new CustomAddressFromLocationCallback() {
+            @Override
+            public void onCompleted(CustomAddress address) {
+                address.setCarLocationId(carLocation.getId());
+                address.save();
+
+                carLocation.setAddress(address);
+                carLocation.setFavourite(true);
+                carLocation.update();
+                post(LocationMapEvent.ON_ADDED_TO_LIST);
+            }
+        });
     }
 
 

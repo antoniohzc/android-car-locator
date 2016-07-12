@@ -98,6 +98,7 @@ public class CarLocatorApp extends Application {
     public LocationMapComponent getLocationMapComponent(LocationMapView view) {
         return DaggerLocationMapComponent.builder()
                 .carLocatorAppModule(carLocatorAppModule)
+                .domainModule(domainModule)
                 .libsModule(libsModule)
                 .locationMapModule(new LocationMapModule(view))
                 .build();

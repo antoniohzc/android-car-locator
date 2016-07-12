@@ -22,14 +22,12 @@ import hzc.antonio.carlocator.libs.base.ImageLoader;
 
 public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdapter.ViewHolder> {
     private Context context;
-    private Util util;
     private ImageLoader imageLoader;
     private List<CarLocation> dataset;
     private OnItemClickListener onItemClickListener;
 
-    public LocationsListAdapter(Context context, Util util, ImageLoader imageLoader, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
+    public LocationsListAdapter(Context context, ImageLoader imageLoader, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
         this.context = context;
-        this.util = util;
         this.imageLoader = imageLoader;
         this.dataset = dataset;
         this.onItemClickListener = onItemClickListener;
@@ -44,17 +42,15 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         CarLocation carLocation = dataset.get(position);
+        CustomAddress address = carLocation.getAddress();
+
         holder.setOnItemClickListener(carLocation, onItemClickListener);
+
+        holder.lblCity.setText(address.getCity() + " (" + address.getProvince() + ")");
+        holder.lblStreet.setText(address.getStreet() + " (" + address.getPostalCode() + ")");
         holder.lblDate.setText(carLocation.getTimestamp());
 
-        double lat = carLocation.getLatitude();
-        double lng = carLocation.getLongitude();
-        CustomAddress address = util.getCustomAddressFromLocation(lat, lng);
-
-        holder.lblCity.setText(address.getPostalCode() + " " + address.getCity() + " (" + address.getProvince() + ")");
-        holder.lblStreet.setText(address.getStreet());
-
-        imageLoader.load(holder.imgMap, util.getImageMapUrl(carLocation));
+        imageLoader.load(holder.imgMap, Util.getImageMapUrl(carLocation));
 
         int currentColor = ContextCompat.getColor(context, R.color.colorAccent);
         int notCurrentColor = ContextCompat.getColor(context, R.color.colorSecondaryText);

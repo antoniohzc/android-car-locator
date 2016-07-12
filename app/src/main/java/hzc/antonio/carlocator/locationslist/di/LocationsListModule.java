@@ -54,8 +54,8 @@ public class LocationsListModule {
     }
 
     @Provides @Singleton
-    LocationsListAdapter providesLocationsListAdapter(Context context, Util util, ImageLoader imageLoader, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
-        return new LocationsListAdapter(context, util, imageLoader, dataset, onItemClickListener);
+    LocationsListAdapter providesLocationsListAdapter(Context context, ImageLoader imageLoader, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
+        return new LocationsListAdapter(context, imageLoader, dataset, onItemClickListener);
     }
 
     @Provides @Singleton

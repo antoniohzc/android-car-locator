@@ -2,6 +2,7 @@ package hzc.antonio.carlocator.entities;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ColumnIgnore;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -23,6 +24,8 @@ public class CarLocation extends BaseModel {
     private boolean current;
     @Column
     private boolean favourite;
+    @ColumnIgnore
+    private CustomAddress address;
 
 
     public int getId() {
@@ -73,10 +76,18 @@ public class CarLocation extends BaseModel {
         this.favourite = favourite;
     }
 
+    public CustomAddress getAddress() {
+        return address;
+    }
+
+    public void setAddress(CustomAddress address) {
+        this.address = address;
+    }
+
     public LatLng getLatLng() {
         return new LatLng(this.latitude, this.longitude);
     }
-    
+
     public void setLatLng(LatLng location) {
         this.latitude = location.latitude;
         this.longitude = location.longitude;

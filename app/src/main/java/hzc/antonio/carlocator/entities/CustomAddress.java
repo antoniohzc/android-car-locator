@@ -1,13 +1,39 @@
 package hzc.antonio.carlocator.entities;
 
-public class CustomAddress {
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import hzc.antonio.carlocator.db.CarLocationsDatabase;
+
+@Table(database = CarLocationsDatabase.class)
+public class CustomAddress extends BaseModel{
+
+    @PrimaryKey
+    private int carLocationId;
+    @Column
     private String street;
+    @Column
     private String city;
+    @Column
     private String postalCode;
+    @Column
     private String province;
+    @Column
     private String countryName;
+    @Column
     private String countryCode;
+    @Column
     private String featuredName;
+
+    public int getCarLocationId() {
+        return carLocationId;
+    }
+
+    public void setCarLocationId(int carLocationId) {
+        this.carLocationId = carLocationId;
+    }
 
     public String getStreet() {
         return street;

@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.libs.base.EventBus;
 import hzc.antonio.carlocator.locationmap.LocationMapInteractor;
 import hzc.antonio.carlocator.locationmap.LocationMapInteractorImpl;
@@ -37,7 +38,7 @@ public class LocationMapModule {
     }
 
     @Provides @Singleton
-    LocationMapRepository providesLocationMapRepository(EventBus eventBus) {
-        return new LocationMapRepositoryImpl(eventBus);
+    LocationMapRepository providesLocationMapRepository(EventBus eventBus, Util util) {
+        return new LocationMapRepositoryImpl(eventBus, util);
     }
 }

@@ -2,6 +2,7 @@ package hzc.antonio.carlocator.domain;
 
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.AsyncTask;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -18,45 +19,56 @@ public class Util {
         this.geocoder = geocoder;
     }
 
-    public CustomAddress getCustomAddressFromLocation(double lat, double lng) {
-        List<Address> addresses = null;
-        CustomAddress mAddress = new CustomAddress();
+    public void getCustomAddressFromLocation(final double lat, final double lng, final CustomAddressFromLocationCallback listener) {
+        new AsyncTask<Void, Void, CustomAddress>() {
+            @Override
+            protected CustomAddress doInBackground(Void... params) {
+                try {
+                    List<Address> addresses = null;
+                    addresses = geocoder.getFromLocation(lat, lng, 1);
 
-        try {
-            addresses = geocoder.getFromLocation(lat, lng, 1);
+                    if (addresses == null || addresses.size() == 0) {
+                        return getCustomAddressDefaults();
+                    }
+                    else {
+                        Address address = addresses.get(0);
+                        CustomAddress mAddress = new CustomAddress();
 
-            if (addresses == null || addresses.size() == 0) {
-                mAddress = getCustomAddressDefaults();
+//                        ArrayList<String> addressLines = new ArrayList<String>();
+//                        for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+//                            addressLines.add(address.getAddressLine(i));
+//                        }
+//                        mAddress.setStreet(TextUtils.join(", ", addressLines));
+
+                        mAddress.setStreet(
+                                (address.getThoroughfare() == null ? "Street" : address.getThoroughfare()) +
+                                ", " +
+                                (address.getSubThoroughfare() == null ? "0" : address.getSubThoroughfare()));
+                        mAddress.setCity(address.getLocality() == null ? "City" : address.getLocality());
+                        mAddress.setPostalCode(address.getPostalCode()== null ? "00000" : address.getPostalCode());
+                        mAddress.setProvince(address.getSubAdminArea()== null ? "Province" : address.getSubAdminArea());
+                        mAddress.setCountryCode(address.getCountryCode()== null ? "__" : address.getCountryCode());
+                        mAddress.setCountryName(address.getCountryName()== null ? "Country" : address.getCountryName());
+                        mAddress.setFeaturedName(address.getFeatureName() == null ? "" : address.getFeatureName());
+
+                        return mAddress;
+                    }
+                }
+                catch (IOException e) {
+                    return getCustomAddressDefaults();
+                }
             }
-            else {
-                Address address = addresses.get(0);
 
-//                ArrayList<String> addressLines = new ArrayList<String>();
-//                for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-//                    addressLines.add(address.getAddressLine(i));
-//                }
-//                mAddress.setStreet(TextUtils.join(", ", addressLines));
-
-                mAddress.setStreet(
-                        (address.getThoroughfare() == null ? "Street" : address.getThoroughfare()) +
-                        ", " +
-                        (address.getSubThoroughfare() == null ? "0" : address.getSubThoroughfare()));
-                mAddress.setCity(address.getLocality() == null ? "City" : address.getLocality());
-                mAddress.setPostalCode(address.getPostalCode()== null ? "00000" : address.getPostalCode());
-                mAddress.setProvince(address.getSubAdminArea()== null ? "Province" : address.getSubAdminArea());
-                mAddress.setCountryCode(address.getCountryCode()== null ? "__" : address.getCountryCode());
-                mAddress.setCountryName(address.getCountryName()== null ? "Country" : address.getCountryName());
-                mAddress.setFeaturedName(address.getFeatureName() == null ? "" : address.getFeatureName());
+            @Override
+            protected void onPostExecute(CustomAddress address) {
+                listener.onCompleted(address);
             }
-        }
-        catch (IOException e) {
-            mAddress = getCustomAddressDefaults();
-        }
+        }.execute();
 
-        return mAddress;
+
     }
 
-    private CustomAddress getCustomAddressDefaults() {
+    public static CustomAddress getCustomAddressDefaults() {
         CustomAddress mAddress = new CustomAddress();
 
         mAddress.setStreet("Street");
@@ -71,7 +83,7 @@ public class Util {
     }
 
 
-    public String getImageMapUrl(CarLocation carLocation) {
+    public static String getImageMapUrl(CarLocation carLocation) {
         return "https://maps.googleapis.com/maps/api/staticmap?" +
                 "center=" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
                 "&zoom=16" +
@@ -80,6 +92,7 @@ public class Util {
                 "&markers=color:green%7Csize:normal%7C" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
                 "&style=feature:all%7Celement:labels%7Clightness:25";
     }
+
 
     public static String generateTimestamp() {
         return new SimpleDateFormat("yyyy.MM.dd - HH:mm").format(new Date());
