@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/btnShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share_24dp_accent"
+        android:background="@android:color/transparent"/>
+
+    <ImageButton
+        android:id="@+id/btnDisplayStreetView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_action_btn_margin"
+        android:layout_marginStart="@dimen/layout_action_btn_margin"
+        android:layout_marginRight="@dimen/layout_action_btn_margin"
+        android:layout_marginEnd="@dimen/layout_action_btn_margin"
+        android:src="@drawable/ic_streetview_24dp_accent"
+        android:background="@android:color/transparent"/>
+
+    <ImageButton
+        android:id="@+id/btnLaunchNavigation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_directions_24dp_accent"
+        android:background="@android:color/transparent"/>
+
+</LinearLayout>

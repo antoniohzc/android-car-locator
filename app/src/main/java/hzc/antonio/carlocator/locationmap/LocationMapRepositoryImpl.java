@@ -80,7 +80,7 @@ public class LocationMapRepositoryImpl implements LocationMapRepository {
 
         util.getCustomAddressFromLocation(carLocation.getLatitude(), carLocation.getLongitude(), new CustomAddressFromLocationCallback() {
             @Override
-            public void onCompleted(CustomAddress address) {
+            public void onFinished(CustomAddress address) {
                 address.setCarLocationId(carLocation.getId());
                 address.save();
 

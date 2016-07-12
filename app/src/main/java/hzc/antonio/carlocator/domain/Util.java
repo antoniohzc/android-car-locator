@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.entities.CarLocation;
 import hzc.antonio.carlocator.entities.CustomAddress;
 
@@ -64,7 +63,7 @@ public class Util {
 
             @Override
             protected void onPostExecute(CustomAddress address) {
-                listener.onCompleted(address);
+                listener.onFinished(address);
             }
         }.execute();
 

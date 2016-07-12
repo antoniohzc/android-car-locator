@@ -2,6 +2,8 @@ package hzc.antonio.carlocator.locationmap.ui;
 
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -17,7 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +30,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.inject.Inject;
@@ -35,7 +40,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.R;
+import hzc.antonio.carlocator.domain.CustomAddressFromLocationCallback;
+import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
+import hzc.antonio.carlocator.entities.CustomAddress;
 import hzc.antonio.carlocator.locationmap.LocationMapPresenter;
 import hzc.antonio.carlocator.main.ui.MainActivity;
 
@@ -43,13 +51,15 @@ import hzc.antonio.carlocator.main.ui.MainActivity;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LocationMapFragment extends Fragment implements LocationMapView, OnMapReadyCallback {
+public class LocationMapFragment extends Fragment implements LocationMapView, OnMapReadyCallback, GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
 
     @BindView(R.id.container) RelativeLayout container;
     @BindView(R.id.btnAddToList) ImageButton btnAddToList;
 
     @Inject
     LocationMapPresenter presenter;
+    @Inject
+    Util util;
 
     private CarLocatorApp app;
     private GoogleMap map;
@@ -192,17 +202,21 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
 
     //region Events from presenter
     @Override
-    public void setCarLocation(CarLocation carLocation) {
+    public void setCarLocation(final CarLocation carLocation) {
         this.carLocation = carLocation;
         LatLng location = carLocation.getLatLng();
+
+        util.getCustomAddressFromLocation(carLocation.getLatitude(), carLocation.getLongitude(), new CustomAddressFromLocationCallback() {
+            @Override
+            public void onFinished(CustomAddress address) {
+                carLocation.setAddress(address);
+            }
+        });
 
         map.clear();
         map.addMarker(new MarkerOptions()
                 .position(location)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marker))
-        );
-
-        // animateCamera(location);
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marker)));
     }
 
     @Override
@@ -248,6 +262,72 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     //endregion
 
 
+    //region InfoWindow
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        View view = getActivity().getLayoutInflater().inflate(R.layout.info_window, null);
+
+        final TextView lblCity = (TextView) view.findViewById(R.id.lblCity);
+        final TextView lblZip = (TextView) view.findViewById(R.id.lblZip);
+        final TextView lblStreet = (TextView) view.findViewById(R.id.lblStreet);
+
+        CustomAddress address = carLocation.getAddress();
+        if (address != null) {
+            lblCity.setText(address.getCity());
+            lblZip.setText("(" + address.getPostalCode() + " " + address.getProvince() + ")");
+            lblStreet.setText(address.getStreet());
+        }
+
+        return view;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        marker.hideInfoWindow();
+
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_action_buttons, null);
+        ImageView btnShare = (ImageView) view.findViewById(R.id.btnShare);
+        ImageView btnDisplayStreetView = (ImageView) view.findViewById(R.id.btnDisplayStreetView);
+        ImageView btnLaunchNavigation = (ImageView) view.findViewById(R.id.btnLaunchNavigation);
+
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Util.getShareIntent(carLocation, getString(R.string.shareintent_subject));
+                String chooserTitle = getString(R.string.shareintent_title);
+                startActivity(Intent.createChooser(intent, chooserTitle));
+            }
+        });
+
+        btnDisplayStreetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Util.getStreetViewIntent(carLocation);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        btnLaunchNavigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Util.getNavigateToIntent(carLocation);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        new AlertDialog.Builder(this.getContext()).setView(view).show();
+    }
+    //endregion
+
     //region Setup map
     private void setupGoogleMap(GoogleMap googleMap) {
         map = googleMap;
@@ -260,6 +340,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
             }
             return;
         }
+
         map.setMyLocationEnabled(true);
 
         map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -268,6 +349,12 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
                 handleOnMapLongClick(latLng);
             }
         });
+
+        map.setInfoWindowAdapter(this);
+        map.setOnInfoWindowClickListener(this);
+
+        map.getUiSettings().setMapToolbarEnabled(false);
+        map.getUiSettings().setZoomControlsEnabled(true);
     }
 
     @Override
