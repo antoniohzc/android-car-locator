@@ -37,12 +37,15 @@ public class Util {
 //                }
 //                mAddress.setStreet(TextUtils.join(", ", addressLines));
 
-                mAddress.setStreet(address.getMaxAddressLineIndex() == 0 ? "Street" : address.getAddressLine(0));
-                mAddress.setCity(address.getMaxAddressLineIndex() == 1 ? "City" : address.getAddressLine(1));
-                mAddress.setCountryCode(address.getCountryCode());
-                mAddress.setCountryName(address.getCountryName());
-                mAddress.setPostalCode(address.getPostalCode());
-                mAddress.setProvince(address.getAdminArea());
+                mAddress.setStreet(
+                        (address.getThoroughfare() == null ? "Street" : address.getThoroughfare()) +
+                        ", " +
+                        (address.getSubThoroughfare() == null ? "0" : address.getSubThoroughfare()));
+                mAddress.setCity(address.getLocality() == null ? "City" : address.getLocality());
+                mAddress.setPostalCode(address.getPostalCode()== null ? "00000" : address.getPostalCode());
+                mAddress.setProvince(address.getSubAdminArea()== null ? "Province" : address.getSubAdminArea());
+                mAddress.setCountryCode(address.getCountryCode()== null ? "__" : address.getCountryCode());
+                mAddress.setCountryName(address.getCountryName()== null ? "Country" : address.getCountryName());
                 mAddress.setFeaturedName(address.getFeatureName() == null ? "" : address.getFeatureName());
             }
         }
@@ -58,7 +61,7 @@ public class Util {
 
         mAddress.setStreet("Street");
         mAddress.setCity("City");
-        mAddress.setPostalCode("ZIP");
+        mAddress.setPostalCode("00000");
         mAddress.setProvince("Province");
         mAddress.setCountryCode("__");
         mAddress.setCountryName("Country");
@@ -66,6 +69,7 @@ public class Util {
 
         return mAddress;
     }
+
 
     public String getImageMapUrl(CarLocation carLocation) {
         return "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -76,7 +80,6 @@ public class Util {
                 "&markers=color:green%7Csize:normal%7C" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
                 "&style=feature:all%7Celement:labels%7Clightness:25";
     }
-
 
     public static String generateTimestamp() {
         return new SimpleDateFormat("yyyy.MM.dd - HH:mm").format(new Date());

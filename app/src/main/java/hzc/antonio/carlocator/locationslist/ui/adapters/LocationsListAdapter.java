@@ -35,13 +35,6 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         this.onItemClickListener = onItemClickListener;
     }
 
-    public LocationsListAdapter(Context context, Util util, List<CarLocation> dataset, OnItemClickListener onItemClickListener) {
-        this.context = context;
-        this.util = util;
-        this.dataset = dataset;
-        this.onItemClickListener = onItemClickListener;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_locations_list, parent, false);
@@ -58,8 +51,8 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         double lng = carLocation.getLongitude();
         CustomAddress address = util.getCustomAddressFromLocation(lat, lng);
 
+        holder.lblCity.setText(address.getPostalCode() + " " + address.getCity() + " (" + address.getProvince() + ")");
         holder.lblStreet.setText(address.getStreet());
-        holder.lblCity.setText(address.getCity());
 
         imageLoader.load(holder.imgMap, util.getImageMapUrl(carLocation));
 
