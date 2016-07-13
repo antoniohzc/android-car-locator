@@ -2,7 +2,7 @@ package hzc.antonio.carlocator.locationmap.ui;
 
 
 import android.Manifest;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -324,7 +324,9 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
             }
         });
 
-        new AlertDialog.Builder(this.getContext()).setView(view).show();
+        Dialog dialog = new Dialog(this.getContext(), R.style.NoActionBarDialog);
+        dialog.setContentView(view);
+        dialog.show();
     }
     //endregion
 

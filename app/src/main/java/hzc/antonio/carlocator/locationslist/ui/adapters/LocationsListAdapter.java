@@ -51,7 +51,7 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         holder.lblStreet.setText(address.getStreet());
         holder.lblDate.setText(carLocation.getTimestamp());
 
-        imageLoader.load(holder.imgMap, Util.getImageMapUrl(carLocation));
+        imageLoader.load(holder.imgMap, Util.getImageMapUrl(carLocation, false));
 
         int currentColor = ContextCompat.getColor(context, R.color.colorAccent);
         int notCurrentColor = ContextCompat.getColor(context, R.color.colorSecondaryText);
@@ -137,7 +137,6 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
                 }
             });
 
-
             btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -149,6 +148,13 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
                 @Override
                 public void onClick(View v) {
                     listener.onMakeCurrentClick(carLocation);
+                }
+            });
+
+            imgMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onImageMapClick(carLocation);
                 }
             });
         }

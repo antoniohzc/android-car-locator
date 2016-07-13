@@ -17,6 +17,11 @@ import hzc.antonio.carlocator.entities.CustomAddress;
 public class Util {
     private Geocoder geocoder;
 
+    private static final String STATIC_MAP_ZOOM_SMALL = "16";
+    private static final String STATIC_MAP_ZOOM_LARGE = "17";
+    private static final String STATIC_MAP_SIZE_SMALL = "180";
+    private static final String STATIC_MAP_SIZE_LARGE = "300";
+
     public Util(Geocoder geocoder) {
         this.geocoder = geocoder;
     }
@@ -89,11 +94,14 @@ public class Util {
         return new SimpleDateFormat("yyyy.MM.dd - HH:mm").format(new Date());
     }
 
-    public static String getImageMapUrl(CarLocation carLocation) {
+    public static String getImageMapUrl(CarLocation carLocation, boolean isLarge) {
+        String zoom = isLarge ? STATIC_MAP_ZOOM_LARGE : STATIC_MAP_ZOOM_SMALL;
+        String size = isLarge ? STATIC_MAP_SIZE_LARGE : STATIC_MAP_SIZE_SMALL;
+
         return "https://maps.googleapis.com/maps/api/staticmap?" +
                 "center=" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
-                "&zoom=16" +
-                "&size=180x180" +
+                "&zoom=" + zoom +
+                "&size=" + size + "x" + size +
                 "&scale=2" +
                 "&markers=color:green%7Csize:normal%7C" + carLocation.getLatitude() + "," + carLocation.getLongitude() +
                 "&style=feature:all%7Celement:labels%7Clightness:25";

@@ -8,4 +8,5 @@ public interface OnItemClickListener {
     void onLaunchNavigationClick(CarLocation carLocation);
     void onRemoveClick(CarLocation carLocation);
     void onMakeCurrentClick(CarLocation carLocation);
+    void onImageMapClick(CarLocation carLocation);
 }

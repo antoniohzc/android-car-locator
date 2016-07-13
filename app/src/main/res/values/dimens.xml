@@ -18,4 +18,7 @@
     <dimen name="locationslist_margin_cardview">2dp</dimen>
 
     <dimen name="layout_action_btn_margin">32dp</dimen>
+
+    <dimen name="dialog_img_map_margin">8dp</dimen>
+    <dimen name="dialog_img_map_size">280dp</dimen>
 </resources>

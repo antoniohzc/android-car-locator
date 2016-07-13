@@ -1,8 +1,8 @@
 package hzc.antonio.carlocator.locationslist.ui;
 
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import hzc.antonio.carlocator.CarLocatorApp;
 import hzc.antonio.carlocator.R;
 import hzc.antonio.carlocator.domain.Util;
 import hzc.antonio.carlocator.entities.CarLocation;
+import hzc.antonio.carlocator.libs.base.ImageLoader;
 import hzc.antonio.carlocator.locationslist.LocationsListPresenter;
 import hzc.antonio.carlocator.locationslist.ui.adapters.LocationsListAdapter;
 import hzc.antonio.carlocator.locationslist.ui.adapters.OnItemClickListener;
@@ -44,6 +46,8 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     LocationsListPresenter presenter;
     @Inject
     LocationsListAdapter adapter;
+    @Inject
+    ImageLoader imageLoader;
 
     public LocationsListFragment() { }
 
@@ -91,7 +95,7 @@ public class LocationsListFragment extends Fragment implements LocationsListView
 
 
     public RecyclerView getRecyclerView() {
-        return this.recyclerView;
+        return (RecyclerView) getView().findViewById(R.id.recyclerView);
     }
 
 
@@ -158,6 +162,18 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     @Override
     public void onMakeCurrentClick(CarLocation carLocation) {
         presenter.updateCarLocationMakeCurrent(carLocation);
+    }
+
+    @Override
+    public void onImageMapClick(CarLocation carLocation) {
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_img_map, null);
+
+        ImageView imgMap = (ImageView) view.findViewById(R.id.imgMap);
+        imageLoader.load(imgMap, Util.getImageMapUrl(carLocation, true));
+
+        Dialog dialog = new Dialog(this.getContext(), R.style.TransparentDialog);
+        dialog.setContentView(view);
+        dialog.show();
     }
     //endregion
 
