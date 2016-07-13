@@ -12,22 +12,18 @@
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layoutButtons"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/appbar_padding_top"
+        android:paddingBottom="11dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/transparent"
-        android:weightSum="3">
+        android:layout_centerHorizontal="true">
 
         <ImageButton
             android:id="@+id/btnCarLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/locationmap_padding_icon_button"
-            android:layout_toLeftOf="@+id/btnAddToList"
-            android:layout_toStartOf="@+id/btnAddToList"
             android:backgroundTint="@color/colorSemiTransparent"
             android:elevation="@dimen/locationmap_elevation_button"
             android:src="@drawable/btn_show_car"/>
@@ -36,12 +32,10 @@
             android:id="@+id/btnAddToList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/locationmap_padding_icon_button"
-            android:layout_marginRight="@dimen/locationmap_margin_icon_button"
             android:layout_marginLeft="@dimen/locationmap_margin_icon_button"
-            android:layout_marginEnd="@dimen/locationmap_margin_icon_button"
             android:layout_marginStart="@dimen/locationmap_margin_icon_button"
-            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/locationmap_margin_icon_button"
+            android:layout_marginEnd="@dimen/locationmap_margin_icon_button"
             android:backgroundTint="@color/colorSemiTransparent"
             android:elevation="@dimen/locationmap_elevation_button"
             android:src="@drawable/btn_add_list"/>
@@ -50,13 +44,10 @@
             android:id="@+id/btnSaveCurrentLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/locationmap_padding_icon_button"
-            android:layout_toRightOf="@+id/btnAddToList"
-            android:layout_toEndOf="@+id/btnAddToList"
             android:backgroundTint="@color/colorSemiTransparent"
             android:elevation="@dimen/locationmap_elevation_button"
             android:src="@drawable/btn_set_current"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

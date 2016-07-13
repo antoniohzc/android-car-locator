@@ -370,7 +370,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
         map.setOnInfoWindowClickListener(this);
 
         map.getUiSettings().setMapToolbarEnabled(false);
-        map.getUiSettings().setZoomControlsEnabled(true);
+        map.getUiSettings().setZoomControlsEnabled(false);
     }
 
     @Override

@@ -8,7 +8,7 @@
     <dimen name="appbar_margin_right_user">48dp</dimen>
 
     <dimen name="locationmap_padding_icon_button">6dp</dimen>
-    <dimen name="locationmap_margin_icon_button">48dp</dimen>
+    <dimen name="locationmap_margin_icon_button">16dp</dimen>
     <dimen name="locationmap_elevation_button">2px</dimen>
 
     <dimen name="locationslist_height_layout">104dp</dimen>
