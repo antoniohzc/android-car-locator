@@ -13,7 +13,6 @@ public interface LocationsListView {
     void hideMessageEmptyList();
 
     void setCarLocations(List<CarLocation> list);
-    void onCarLocationUpdated(CarLocation carLocation);
     void onCarLocationRemoved(CarLocation carLocation);
     void onCarLocationsError(String error);
 }

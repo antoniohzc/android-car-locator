@@ -63,7 +63,8 @@ public class LocationsListRepositoryImpl implements LocationsListRepository {
         carLocation.setTimestamp(Util.generateTimestamp());
         carLocation.setCurrent(true);
         carLocation.update();
-        post(LocationsListEvent.ON_CAR_LOCATION_UPDATED, Arrays.asList(carLocation));
+
+        getCarLocations();
     }
 
     @Override

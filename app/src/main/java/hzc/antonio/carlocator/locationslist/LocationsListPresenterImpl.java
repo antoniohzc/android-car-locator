@@ -76,9 +76,6 @@ public class LocationsListPresenterImpl implements LocationsListPresenter {
                     case LocationsListEvent.ON_SET_CAR_LOCATIONS:
                         view.setCarLocations(event.getCarLocations());
                         break;
-                    case LocationsListEvent.ON_CAR_LOCATION_UPDATED:
-                        view.onCarLocationUpdated(event.getCarLocations().get(0));
-                        break;
                     case LocationsListEvent.ON_CAR_LOCATION_REMOVED:
                         view.onCarLocationRemoved(event.getCarLocations().get(0));
                         break;

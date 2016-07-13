@@ -190,11 +190,6 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     }
 
     @Override
-    public void onCarLocationUpdated(CarLocation carLocation) {
-        presenter.getCarLocations();
-    }
-
-    @Override
     public void onCarLocationRemoved(CarLocation carLocation) {
         adapter.removeCarLocation(carLocation);
     }
