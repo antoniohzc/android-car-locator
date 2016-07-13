@@ -95,6 +95,24 @@ public class MainActivity extends AppCompatActivity implements MainView,
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                super.onTabReselected(tab);
+
+                int listFragmentPosition = adapter.getCount() - 1;
+                if (tab.getPosition() == listFragmentPosition) {
+                    try {
+                        LocationsListFragment fragment = (LocationsListFragment) adapter.getItem(listFragmentPosition);
+                        fragment.getRecyclerView().smoothScrollToPosition(0);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void setupGoogleApiClient() {

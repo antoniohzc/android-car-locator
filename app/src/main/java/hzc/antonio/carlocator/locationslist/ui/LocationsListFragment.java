@@ -90,6 +90,11 @@ public class LocationsListFragment extends Fragment implements LocationsListView
     //endregion
 
 
+    public RecyclerView getRecyclerView() {
+        return this.recyclerView;
+    }
+
+
     @Override
     public void showList() {
         recyclerView.setVisibility(View.VISIBLE);
