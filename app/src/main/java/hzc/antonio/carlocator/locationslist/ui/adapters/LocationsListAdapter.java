@@ -110,12 +110,23 @@ public class LocationsListAdapter extends RecyclerView.Adapter<LocationsListAdap
         @BindView(R.id.btnRemove) ImageButton btnRemove;
         @BindView(R.id.btnMakeCurrent) ImageButton btnMakeCurrent;
 
+        private View itemView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.itemView = itemView;
         }
 
         public void setOnItemClickListener(final CarLocation carLocation, final OnItemClickListener listener) {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.onItemLongClick();
+                    return false;
+                }
+            });
+
             btnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

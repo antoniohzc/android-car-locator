@@ -95,7 +95,7 @@ public class LocationsListFragment extends Fragment implements LocationsListView
 
 
     public RecyclerView getRecyclerView() {
-        return (RecyclerView) getView().findViewById(R.id.recyclerView);
+        return this.recyclerView;
     }
 
 
@@ -131,6 +131,11 @@ public class LocationsListFragment extends Fragment implements LocationsListView
 
 
     //region User action handlers
+    @Override
+    public void onItemLongClick() {
+        recyclerView.smoothScrollToPosition(0);
+    }
+
     @Override
     public void onShareClick(CarLocation carLocation) {
         Intent intent = Util.getShareIntent(carLocation, getString(R.string.shareintent_subject));
