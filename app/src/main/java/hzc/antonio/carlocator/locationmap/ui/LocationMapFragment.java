@@ -330,6 +330,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
     }
     //endregion
 
+
     //region Setup map
     private void setupGoogleMap(GoogleMap googleMap) {
         map = googleMap;
@@ -369,6 +370,7 @@ public class LocationMapFragment extends Fragment implements LocationMapView, On
         map.setInfoWindowAdapter(this);
         map.setOnInfoWindowClickListener(this);
 
+        map.setBuildingsEnabled(false);
         map.getUiSettings().setMapToolbarEnabled(false);
         map.getUiSettings().setZoomControlsEnabled(false);
     }
